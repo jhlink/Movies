@@ -26,6 +26,5 @@ public class MainActivity extends AppCompatActivity {
         mAdapter = new MovieAdapter(NUM_MOVIE_GRID_ITEMS);
 
         mMovieGrid.setAdapter(mAdapter);
-        //Log.i("KEY", BuildConfig.MOVIE_API_KEY);
     }
 }

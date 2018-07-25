@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">Movies</string>
     <string name="testValue">GoForthAndBelieve</string>
+
+    <string name="MOVIE_SERVICE_BASE_URL">https://api.themoviedb.org/3/movie/</string>
+    <string name="API_KEY_QUERY_STRING">api_key</string>
+    <string name="POPULAR_MOVIES_QUERY_STRING">popular</string>
+    <string name="TOP_RATED_QUERY_STRING">top_rated</string>
 </resources>
