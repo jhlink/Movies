@@ -1,6 +1,7 @@
 package com.udacity.oliverh.movies;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,5 +28,15 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         MovieViewHolder viewHolder = new MovieViewHolder(view);
 
         return viewHolder;
+    }
+
+    @Override
+    public void onBindViewHolder(MovieViewHolder movieViewHolder, int i) {
+        movieViewHolder.bind(i);
+    }
+
+    @Override
+    public int getItemCount() {
+        return mNumberOfMovies;
     }
 }
