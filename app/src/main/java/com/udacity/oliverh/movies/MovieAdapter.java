@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> {
 
@@ -38,5 +39,19 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     @Override
     public int getItemCount() {
         return mNumberOfMovies;
+    }
+
+    class MovieViewHolder extends RecyclerView.ViewHolder {
+        TextView gridItemTextView;
+
+        public MovieViewHolder(View gridItemView) {
+            super(gridItemView);
+
+            gridItemTextView = (TextView) gridItemView.findViewById(R.id.tv_grid_item);
+        }
+
+        void bind (int listIndex) {
+            gridItemTextView.setText(String.valueOf(listIndex));
+        }
     }
 }
