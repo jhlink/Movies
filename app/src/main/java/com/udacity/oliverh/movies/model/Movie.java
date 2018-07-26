@@ -1,8 +1,10 @@
 package com.udacity.oliverh.movies.model;
 
+import java.util.Date;
+
 public class Movie {
     private String mTitle;
-    private String mReleaseDate;
+    private Date mReleaseDate;
     private String mMoviePoster;
     private double mVoteAverage;
     private String mPlotSynopsis;
@@ -10,7 +12,7 @@ public class Movie {
     public Movie () { }
 
     public Movie ( String title,
-                   String releaseDate,
+                   Date releaseDate,
                    String moviePoster,
                    double voteAverage,
                    String plotSynopsis ) {
@@ -33,11 +35,11 @@ public class Movie {
         this.mTitle = title;
     }
 
-    public String getReleaseDate() {
+    public Date getReleaseDate() {
         return mReleaseDate;
     }
 
-    public void setReleaseDate(String releaseDate) {
+    public void setReleaseDate(Date releaseDate) {
         this.mReleaseDate = releaseDate;
     }
 
