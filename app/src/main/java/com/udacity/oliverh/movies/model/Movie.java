@@ -21,4 +21,39 @@ public class Movie {
         this.mPlotSynopsis = plotSynopsis;
     }
 
+    public String getMoviePoster() {
+        return mMoviePoster;
+    }
+
+    public String getTitle() {
+        return mTitle;
+    }
+
+    public void setTitle(String title) {
+        this.mTitle = title;
+    }
+
+    public String getReleaseDate() {
+        return mReleaseDate;
+    }
+
+    public void setReleaseDate(String releaseDate) {
+        this.mReleaseDate = releaseDate;
+    }
+
+    public double getVoteAverage() {
+        return mVoteAverage;
+    }
+
+    public void setVoteAverage(double voteAverage) {
+        this.mVoteAverage = voteAverage;
+    }
+
+    public String getPlotSynopsis() {
+        return mPlotSynopsis;
+    }
+
+    public void setPlotSynopsis(String plotSynopsis) {
+        this.mPlotSynopsis = plotSynopsis;
+    }
 }
