@@ -26,9 +26,9 @@ public class MovieServiceAPI {
     private final static int POPULAR_MOVIES_QUERY_STRING_ID = R.string.POPULAR_MOVIES_QUERY_STRING;
     private final static int TOP_RATED_QUERY_STRING_ID = R.string.TOP_RATED_QUERY_STRING;
 
-    private final OkHttpClient client = OkHttpSingleton.getInstance().getClient();
+    private static final OkHttpClient client = OkHttpSingleton.getInstance().getClient();
 
-    public static void getPopularMovies(Context context) throws IOException {
+    public static void getPopularMovies(Context context, Callback cb) throws IOException {
         HttpUrl builtUri = HttpUrl.parse(context.getString(MOVIE_DB_BASE_URL_ID)).newBuilder()
                 .addPathSegment(context.getString(POPULAR_MOVIES_QUERY_STRING_ID))
                 .addQueryParameter(context.getString(API_KEY_QUERY_STRING_ID), MOVIE_DB_API_KEY)
@@ -38,21 +38,7 @@ public class MovieServiceAPI {
                 .url(builtUri)
                 .build();
 
-        String test;
-
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                call.cancel();
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                String jsonResponse = response.body().string();
-
-                Log.i(MOVIE_SERVICE_API_TAG, jsonResponse);
-            }
-        });
+        client.newCall(request).enqueue(cb);
     }
 
     public static void getTopRatedMovies(Context context) throws IOException {
