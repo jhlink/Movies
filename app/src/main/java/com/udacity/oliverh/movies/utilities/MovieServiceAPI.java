@@ -28,7 +28,7 @@ public class MovieServiceAPI {
 
     private final OkHttpClient client = OkHttpSingleton.getInstance().getClient();
 
-    public void getPopularMovies(Context context) throws IOException {
+    public static void getPopularMovies(Context context) throws IOException {
         HttpUrl builtUri = HttpUrl.parse(context.getString(MOVIE_DB_BASE_URL_ID)).newBuilder()
                 .addPathSegment(context.getString(POPULAR_MOVIES_QUERY_STRING_ID))
                 .addQueryParameter(context.getString(API_KEY_QUERY_STRING_ID), MOVIE_DB_API_KEY)
@@ -55,7 +55,7 @@ public class MovieServiceAPI {
         });
     }
 
-    public void getTopRatedMovies(Context context) throws IOException {
+    public static void getTopRatedMovies(Context context) throws IOException {
         HttpUrl builtUri = HttpUrl.parse(context.getString(MOVIE_DB_BASE_URL_ID)).newBuilder()
                 .addPathSegment(context.getString(TOP_RATED_QUERY_STRING_ID))
                 .addQueryParameter(context.getString(API_KEY_QUERY_STRING_ID), MOVIE_DB_API_KEY)
@@ -82,7 +82,7 @@ public class MovieServiceAPI {
         });
     }
 
-    public String getMoviePosterUrl(Context context, String imageSize, String imagePath) {
+    public static String getMoviePosterUrl(Context context, String imageSize, String imagePath) {
         HttpUrl builtUri = HttpUrl.parse(context.getString(MOVIE_IMAGE_BASE_URL_ID)).newBuilder()
                 .addPathSegment(imageSize)
                 .addPathSegment(imagePath)
