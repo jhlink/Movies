@@ -26,7 +26,7 @@ public class MovieServiceAPI {
     private final static int POPULAR_MOVIES_QUERY_STRING_ID = R.string.POPULAR_MOVIES_QUERY_STRING;
     private final static int TOP_RATED_QUERY_STRING_ID = R.string.TOP_RATED_QUERY_STRING;
 
-    private final OkHttpClient client = new OkHttpClient();
+    private final OkHttpClient client = OkHttpSingleton.getInstance().getClient();
 
     public void getPopularMovies(Context context) throws IOException {
         HttpUrl builtUri = HttpUrl.parse(context.getString(MOVIE_DB_BASE_URL_ID)).newBuilder()
