@@ -10,6 +10,7 @@ import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
 import com.udacity.oliverh.movies.model.Movie;
 import com.udacity.oliverh.movies.utilities.MoshiAdapters.DateAdapter;
+import com.udacity.oliverh.movies.utilities.MovieServiceAPI;
 
 import java.io.IOException;
 
@@ -34,8 +35,11 @@ public class MainActivity extends AppCompatActivity {
         mAdapter = new MovieAdapter(NUM_MOVIE_GRID_ITEMS);
 
         mMovieGrid.setAdapter(mAdapter);
+
         try {
-            test();
+            // Need to Create a Singleton helper class to ensure that OkHTTPClient is only
+            //  instantiated once.
+            new MovieServiceAPI().getPopularMovies(this);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -51,5 +55,4 @@ public class MainActivity extends AppCompatActivity {
         Movie testVal = jsonAdapter.fromJson(getString(R.string.jsontest));
         Log.i("MOSHI", testVal.toString());
     }
-
 }
