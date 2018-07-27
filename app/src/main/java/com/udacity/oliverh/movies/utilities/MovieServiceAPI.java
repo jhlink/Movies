@@ -17,13 +17,14 @@ import okhttp3.Response;
 
 public class MovieServiceAPI {
     private final static String MOVIE_SERVICE_API_TAG = MovieServiceAPI.class.getSimpleName();
-    final static String MOVIE_DB_API_KEY = BuildConfig.MOVIE_API_KEY;
+    private final static String MOVIE_DB_API_KEY = BuildConfig.MOVIE_API_KEY;
 
     // Resource IDs for strings used to construct Movie URL
-    final static int MOVIE_DB_BASE_URL_ID = R.string.MOVIE_SERVICE_BASE_URL;
-    final static int API_KEY_QUERY_STRING_ID = R.string.API_KEY_QUERY_STRING;
-    final static int POPULAR_MOVIES_QUERY_STRING_ID = R.string.POPULAR_MOVIES_QUERY_STRING;
-    final static int TOP_RATED_QUERY_STRING_ID = R.string.TOP_RATED_QUERY_STRING;
+    private final static int MOVIE_DB_BASE_URL_ID = R.string.MOVIE_SERVICE_BASE_URL;
+    private final static int MOVIE_IMAGE_BASE_URL_ID = R.string.MOVIE_IMAGE_BASE_URL;
+    private final static int API_KEY_QUERY_STRING_ID = R.string.API_KEY_QUERY_STRING;
+    private final static int POPULAR_MOVIES_QUERY_STRING_ID = R.string.POPULAR_MOVIES_QUERY_STRING;
+    private final static int TOP_RATED_QUERY_STRING_ID = R.string.TOP_RATED_QUERY_STRING;
 
     private final OkHttpClient client = new OkHttpClient();
 
@@ -81,11 +82,12 @@ public class MovieServiceAPI {
         });
     }
 
-    // Movie posters, most popular, top rated
-    //  movie information
-    // orginal title
-    // poster thumbnail
-    // plot synopsis
-    // user rating / vote_average
-    // release date
+    public String getMoviePosterUrl(Context context, String imageSize, String imagePath) {
+        HttpUrl builtUri = HttpUrl.parse(context.getString(MOVIE_IMAGE_BASE_URL_ID)).newBuilder()
+                .addPathSegment(imageSize)
+                .addPathSegment(imagePath)
+                .build();
+
+        return builtUri.toString();
+    }
 }
