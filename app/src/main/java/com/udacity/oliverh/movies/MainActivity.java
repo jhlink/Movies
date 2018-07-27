@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         try {
             // Need to Create a Singleton helper class to ensure that OkHTTPClient is only
             //  instantiated once.
-            new MovieServiceAPI().getPopularMovies(this);
+            new MovieServiceAPI().getTopRatedMovies(this);
         } catch (IOException e) {
             e.printStackTrace();
         }
