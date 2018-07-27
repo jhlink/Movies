@@ -45,8 +45,27 @@ public class MainActivity extends AppCompatActivity {
 
         mMovieGrid.setAdapter(mAdapter);
 
-        showPopularMovies();
+        showTopRatedMovies();
+    }
 
+    private void showTopRatedMovies() {
+        Callback topRatedMoviesRequestCb = new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                QueriedMovieList movies = jsonListParser( response.body().string() ) ;
+            }
+        };
+
+        try {
+            MovieServiceAPI.getTopRatedMovies(this, topRatedMoviesRequestCb);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void showPopularMovies() {
