@@ -3,11 +3,11 @@ package com.udacity.oliverh.movies.model;
 import java.util.Date;
 
 public class Movie {
-    private String mTitle;
-    private Date mReleaseDate;
-    private String mMoviePoster;
-    private double mVoteAverage;
-    private String mPlotSynopsis;
+    private String title;
+    private Date release_date;
+    private String poster_path;
+    private double vote_average;
+    private String overview;
 
     public Movie () { }
 
@@ -16,46 +16,46 @@ public class Movie {
                    String moviePoster,
                    double voteAverage,
                    String plotSynopsis ) {
-        this.mTitle = title;
-        this.mReleaseDate = releaseDate;
-        this.mMoviePoster = moviePoster;
-        this.mVoteAverage = voteAverage;
-        this.mPlotSynopsis = plotSynopsis;
+        this.title = title;
+        this.release_date = releaseDate;
+        this.poster_path = moviePoster;
+        this.vote_average = voteAverage;
+        this.overview = plotSynopsis;
     }
 
     public String getMoviePoster() {
-        return mMoviePoster;
+        return poster_path;
     }
 
     public String getTitle() {
-        return mTitle;
+        return title;
     }
 
     public void setTitle(String title) {
-        this.mTitle = title;
+        this.title = title;
     }
 
     public Date getReleaseDate() {
-        return mReleaseDate;
+        return release_date;
     }
 
     public void setReleaseDate(Date releaseDate) {
-        this.mReleaseDate = releaseDate;
+        this.release_date = releaseDate;
     }
 
     public double getVoteAverage() {
-        return mVoteAverage;
+        return vote_average;
     }
 
     public void setVoteAverage(double voteAverage) {
-        this.mVoteAverage = voteAverage;
+        this.vote_average = voteAverage;
     }
 
     public String getPlotSynopsis() {
-        return mPlotSynopsis;
+        return overview;
     }
 
     public void setPlotSynopsis(String plotSynopsis) {
-        this.mPlotSynopsis = plotSynopsis;
+        this.overview = plotSynopsis;
     }
 }
