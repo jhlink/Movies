@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
         mMovieGrid.setHasFixedSize(true);
 
-        mAdapter = new MovieAdapter(NUM_MOVIE_GRID_ITEMS);
+        mAdapter = new MovieAdapter();
 
         mMovieGrid.setAdapter(mAdapter);
 
@@ -57,7 +57,16 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                QueriedMovieList movies = jsonListParser( response.body().string() ) ;
+                final QueriedMovieList movies = jsonListParser( response.body().string() ) ;
+                expandMovieImageUrls(movies.getResults());
+
+                MainActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        mAdapter.setMovieListData(movies.getResults());
+                        mAdapter.notifyDataSetChanged();
+                    }
+                });
             }
         };
 
@@ -85,6 +94,15 @@ public class MainActivity extends AppCompatActivity {
             MovieServiceAPI.getPopularMovies(this, popularMoviesRequestCb);
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    private void expandMovieImageUrls(List<Movie> movies) {
+        for ( int i = 0; i < movies.size(); i++ ) {
+            String newString = MovieServiceAPI.getMoviePosterUrl(MainActivity.this,
+                    "w185",
+                    movies.get(i).getPosterPath().substring(1));
+            movies.get(i).setPosterPath(newString);
         }
     }
 
