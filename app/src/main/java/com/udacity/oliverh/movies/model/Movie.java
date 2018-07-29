@@ -1,11 +1,16 @@
 package com.udacity.oliverh.movies.model;
 
+import android.util.Log;
+
+import com.squareup.moshi.Json;
+import com.udacity.oliverh.movies.utilities.MovieServiceAPI;
+
 import java.util.Date;
 
 public class Movie {
     private String title;
     private Date release_date;
-    private String poster_path;
+    @Json(name = "poster_path") private String posterPath;
     private double vote_average;
     private String overview;
 
@@ -18,13 +23,18 @@ public class Movie {
                    String plotSynopsis ) {
         this.title = title;
         this.release_date = releaseDate;
-        this.poster_path = moviePoster;
+        this.posterPath = moviePoster;
         this.vote_average = voteAverage;
         this.overview = plotSynopsis;
+
     }
 
-    public String getMoviePoster() {
-        return poster_path;
+    public String getPosterPath() {
+        return posterPath;
+    }
+
+    public void setPosterPath( String newPath ) {
+        this.posterPath = newPath;
     }
 
     public String getTitle() {
