@@ -15,7 +15,7 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            app:imageUrl="@{movie.poster_path}"
+            app:imageUrl="@{movie.posterPath}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
