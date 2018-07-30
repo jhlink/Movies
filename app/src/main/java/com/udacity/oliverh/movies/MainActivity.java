@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,7 +21,6 @@ import com.udacity.oliverh.movies.utilities.Recycler.GridItemDecoration;
 import com.udacity.oliverh.movies.utilities.Recycler.MovieAdapter;
 
 import java.io.IOException;
-import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -139,8 +137,7 @@ public class MainActivity extends AppCompatActivity
 
         JsonAdapter<QueriedMovieList> jsonAdapter = moshi.adapter(QueriedMovieList.class);
 
-        QueriedMovieList result = jsonAdapter.fromJson(jsonResponse);
-        return result;
+        return jsonAdapter.fromJson(jsonResponse);
     }
 
     private Callback getNetworkRequestCallback() {
