@@ -1,37 +1,44 @@
 package com.udacity.oliverh.movies.model;
 
+import android.databinding.Bindable;
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.squareup.moshi.Json;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Movie implements Parcelable {
     private String title;
-    private Date release_date;
+
+    @Json(name = "release_date")
+    private Date releaseDate;
+
     @Json(name = "poster_path")
     private String posterPath;
-    private double vote_average;
+
+    @Json(name = "vote_average")
+    private float voteAverage;
     private String overview;
 
     public Movie(String title,
                  Date releaseDate,
                  String moviePoster,
-                 double voteAverage,
+                 float voteAverage,
                  String plotSynopsis) {
         this.title = title;
-        this.release_date = releaseDate;
+        this.releaseDate = releaseDate;
         this.posterPath = moviePoster;
-        this.vote_average = voteAverage;
+        this.voteAverage = voteAverage;
         this.overview = plotSynopsis;
     }
 
     private Movie(Parcel in) {
         title = in.readString();
-        release_date = new Date(in.readLong());
+        releaseDate = new Date(in.readLong());
         posterPath = in.readString();
-        vote_average = in.readDouble();
+        voteAverage = in.readFloat();
         overview = in.readString();
     }
 
@@ -43,9 +50,9 @@ public class Movie implements Parcelable {
     @Override
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(title);
-        parcel.writeLong(release_date.getTime());
+        parcel.writeLong(releaseDate.getTime());
         parcel.writeString(posterPath);
-        parcel.writeDouble(vote_average);
+        parcel.writeFloat(voteAverage);
         parcel.writeString(overview);
     }
 
@@ -79,19 +86,24 @@ public class Movie implements Parcelable {
     }
 
     public Date getReleaseDate() {
-        return release_date;
+        return releaseDate;
+    }
+
+    public String getFormattedDate() {
+        SimpleDateFormat movieDetailFormat = new SimpleDateFormat("MMM dd, yyyy");
+        return movieDetailFormat.format(releaseDate);
     }
 
     public void setReleaseDate(Date releaseDate) {
-        this.release_date = releaseDate;
+        this.releaseDate = releaseDate;
     }
 
-    public double getVoteAverage() {
-        return vote_average;
+    public float getVoteAverage() {
+        return voteAverage;
     }
 
-    public void setVoteAverage(double voteAverage) {
-        this.vote_average = voteAverage;
+    public void setVoteAverage(float voteAverage) {
+        this.voteAverage = voteAverage;
     }
 
     public String getPlotSynopsis() {
