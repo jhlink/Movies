@@ -4,6 +4,7 @@ import android.content.Context;
 import android.databinding.BindingAdapter;
 import android.databinding.DataBindingUtil;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import com.squareup.picasso.Picasso;
 import com.udacity.oliverh.movies.R;
 import com.udacity.oliverh.movies.databinding.MovieGridItemBinding;
 import com.udacity.oliverh.movies.model.Movie;
+import com.udacity.oliverh.movies.utilities.MovieServiceAPI;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,11 +54,14 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         }
     }
 
-    @BindingAdapter({"imageUrl"})
-    public static void loadImage(ImageView view, String url) {
+    @BindingAdapter({"imageUrl", "imageSize"})
+    public static void loadImage(ImageView view, String url, String imageSize) {
+        String moviePosterUrl = MovieServiceAPI.getMoviePosterUrl(view.getContext(),
+                imageSize,
+                url.substring(1));
+
         Picasso.with(view.getContext())
-                .load(url)
-                .resize(300, 0)
+                .load(moviePosterUrl)
                 .placeholder(R.drawable.ic_image)
                 .error(R.drawable.ic_broken_image)
                 .into(view);
