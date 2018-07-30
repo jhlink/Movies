@@ -4,10 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="movie"
-            type="com.udacity.oliverh.movies.model.Movie"/>
+            type="com.udacity.oliverh.movies.model.Movie" />
     </data>
+
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/MovieDetailLayout"
@@ -15,6 +17,7 @@
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="@+id/releaseDate"
         app:layout_constraintTop_toBottomOf="@+id/releaseDate">
+
 
         <ImageView
             android:id="@+id/moviePoster"
@@ -26,8 +29,8 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="24dp"
             android:contentDescription="@string/thumbnail_of_movie_poster"
-            app:imageUrl="@{movie.posterPath}"
             app:imageSize="@{@string/detailSize}"
+            app:imageUrl="@{movie.posterPath}"
             app:layout_constraintEnd_toStartOf="@+id/verticalFold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -67,6 +70,13 @@
             app:layout_constraintStart_toStartOf="@+id/movieTitle"
             app:layout_constraintTop_toBottomOf="@+id/movieTitle" />
 
+        <android.support.constraint.Guideline
+            android:id="@+id/verticalFold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="218dp" />
+
         <TextView
             android:id="@+id/releaseDateLabel"
             android:layout_width="0dp"
@@ -96,47 +106,45 @@
             app:layout_constraintTop_toBottomOf="@+id/releaseDateLabel"
             tools:text="@string/testValue" />
 
-        <TextView
-            android:id="@+id/overviewLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="21dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginStart="16dp"
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
             android:layout_marginTop="16dp"
-            android:text="@string/overview_label"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/guideline4" />
+            app:layout_constraintTop_toBottomOf="@+id/moviePoster">
 
-        <TextView
-            android:id="@+id/overview"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:text="@{movie.plotSynopsis}"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/overviewLabel"
-            app:layout_constraintTop_toBottomOf="@+id/overviewLabel"
-            tools:text="@string/testValue" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-        <android.support.constraint.Guideline
-            android:id="@+id/verticalFold"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_begin="218dp" />
 
-        <android.support.constraint.Guideline
-            android:id="@+id/guideline4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_begin="248dp" />
+                <TextView
+                    android:id="@+id/overviewLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginStart="16dp"
+                    android:text="@string/overview_label"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:layout_editor_absoluteY="264dp" />
 
+                <TextView
+                    android:id="@+id/overview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:text="@{movie.plotSynopsis}"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/overviewLabel"
+                    app:layout_constraintTop_toBottomOf="@+id/overviewLabel"
+                    tools:text="@string/testValue" />
+            </LinearLayout>
+        </ScrollView>
     </android.support.constraint.ConstraintLayout>
 </layout>
