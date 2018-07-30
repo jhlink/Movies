@@ -1,5 +1,6 @@
 package com.udacity.oliverh.movies;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
@@ -52,8 +53,11 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onGridItemClick(Movie movie) {
-        Toast.makeText(this, movie.getTitle(), Toast.LENGTH_SHORT).show();
         Log.i("TOASTY", movie.getTitle());
+
+        Intent movieDetailsIntent = new Intent(MainActivity.this, MovieDetails.class);
+        movieDetailsIntent.putExtra("MOVIE_DATA", movie);
+        startActivity(movieDetailsIntent);
     }
 
     private void showTopRatedMovies() {
