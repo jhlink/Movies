@@ -1,4 +1,4 @@
-package com.udacity.oliverh.movies;
+package com.udacity.oliverh.movies.utilities.Recycler;
 
 import android.content.Context;
 import android.databinding.BindingAdapter;
@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
+import com.udacity.oliverh.movies.R;
 import com.udacity.oliverh.movies.databinding.MovieGridItemBinding;
 import com.udacity.oliverh.movies.model.Movie;
 
@@ -55,6 +56,9 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     public static void loadImage(ImageView view, String url) {
         Picasso.with(view.getContext())
                 .load(url)
+                .resize(300, 0)
+                .placeholder(R.drawable.ic_image)
+                .error(R.drawable.ic_broken_image)
                 .into(view);
     }
 
