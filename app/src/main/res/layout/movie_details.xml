@@ -10,22 +10,68 @@
     </data>
 
     <android.support.constraint.ConstraintLayout
+        android:id="@+id/MovieDetailLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
+        <ImageView
+            android:id="@+id/moviePoster"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="350dp"
-            android:layout_marginLeft="61dp"
-            android:layout_marginRight="350dp"
-            android:layout_marginStart="61dp"
-            android:layout_marginTop="140dp"
-            android:text="@{movie.title}"
+            android:layout_marginBottom="8dp"
+            android:contentDescription="@string/movie_poster_thumbnail"
+            app:imageUrl="@{movie.posterPath}"
+            app:layout_constraintBottom_toTopOf="@+id/movieTitle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <TextView
+            android:id="@+id/movieTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="32dp"
+            android:text="@{movie.title}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/moviePoster"
+            tools:text="Inception" />
+
+        <RatingBar
+            android:id="@+id/ratingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
+            android:isIndicator="true"
+            android:numStars="10"
+            android:rating="@{movie.voteAverage}"
+            android:stepSize=".1"
+            style="?android:attr/ratingBarStyleSmall"
+            app:layout_constraintBottom_toBottomOf="@+id/movieTitle"
+            app:layout_constraintStart_toEndOf="@+id/movieTitle"
+            app:layout_constraintTop_toTopOf="@+id/movieTitle" />
+
+        <TextView
+            android:id="@+id/releaseDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="@{movie.getFormattedDate}"
+            app:layout_constraintStart_toStartOf="@+id/movieTitle"
+            app:layout_constraintTop_toBottomOf="@+id/movieTitle" />
+
+        <TextView
+            android:id="@+id/overview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="24dp"
+            android:text="@{movie.plotSynopsis}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/releaseDate"
+            app:layout_constraintTop_toBottomOf="@+id/releaseDate" />
     </android.support.constraint.ConstraintLayout>
 </layout>
