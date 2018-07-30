@@ -61,7 +61,8 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onGridItemClick(Movie movie) {
         Intent movieDetailsIntent = new Intent(MainActivity.this, MovieDetails.class);
-        movieDetailsIntent.putExtra(getString(R.string.ParcelID), movie);
+        String parcelTag = getString(R.string.ParcelID);
+        movieDetailsIntent.putExtra(parcelTag, movie);
         startActivity(movieDetailsIntent);
     }
 
