@@ -39,9 +39,9 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mMovieGrid = (RecyclerView) findViewById(R.id.rv_movies);
-        mProgressBar = (ProgressBar) findViewById(R.id.pb_loading_indicator);
-        mErrorMessage = (TextView) findViewById(R.id.tv_error_message);
+        mMovieGrid =  findViewById(R.id.rv_movies);
+        mProgressBar =  findViewById(R.id.pb_loading_indicator);
+        mErrorMessage =  findViewById(R.id.tv_error_message);
 
         int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.spacing);
         GridItemDecoration gridItemStyle = new GridItemDecoration(spacingInPixels);
@@ -141,7 +141,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     private Callback getNetworkRequestCallback() {
-        Callback networkCallback = new Callback() {
+        return new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 MainActivity.this.runOnUiThread(new Runnable() {
@@ -166,7 +166,5 @@ public class MainActivity extends AppCompatActivity
                 });
             }
         };
-
-        return networkCallback;
     }
 }
