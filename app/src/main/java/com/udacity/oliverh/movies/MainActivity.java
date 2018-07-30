@@ -6,19 +6,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.Window;
-import android.widget.Toast;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
-import com.squareup.moshi.Types;
 import com.udacity.oliverh.movies.model.Movie;
 import com.udacity.oliverh.movies.model.QueriedMovieList;
 import com.udacity.oliverh.movies.utilities.MoshiAdapters.DateAdapter;
 import com.udacity.oliverh.movies.utilities.MovieServiceAPI;
 
 import java.io.IOException;
-import java.lang.reflect.Type;
 import java.util.List;
 
 import okhttp3.Call;
@@ -60,6 +58,32 @@ public class MainActivity extends AppCompatActivity
         startActivity(movieDetailsIntent);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int selectedMenuItem = item.getItemId();
+
+        switch ( selectedMenuItem ) {
+            case R.id.action_popular:
+                showPopularMovies();
+                return true;
+
+            case R.id.action_top_rated:
+                showTopRatedMovies();
+                return true;
+
+            default:
+                showPopularMovies();
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
     private void showTopRatedMovies() {
         Callback topRatedMoviesRequestCb = new Callback() {
             @Override
@@ -98,7 +122,16 @@ public class MainActivity extends AppCompatActivity
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                QueriedMovieList movies = jsonListParser( response.body().string() ) ;
+                final QueriedMovieList movies = jsonListParser( response.body().string() ) ;
+                expandMovieImageUrls(movies.getResults());
+
+                MainActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        mAdapter.setMovieListData(movies.getResults());
+                        mAdapter.notifyDataSetChanged();
+                    }
+                });
             }
         };
 
