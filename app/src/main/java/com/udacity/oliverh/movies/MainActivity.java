@@ -18,6 +18,8 @@ import com.udacity.oliverh.movies.model.Movie;
 import com.udacity.oliverh.movies.model.QueriedMovieList;
 import com.udacity.oliverh.movies.utilities.MoshiAdapters.DateAdapter;
 import com.udacity.oliverh.movies.utilities.MovieServiceAPI;
+import com.udacity.oliverh.movies.utilities.Recycler.GridItemDecoration;
+import com.udacity.oliverh.movies.utilities.Recycler.MovieAdapter;
 
 import java.io.IOException;
 import java.util.List;
@@ -28,8 +30,7 @@ import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity
         implements MovieAdapter.GridItemClickListener {
-    private static final int NUM_MOVIE_GRID_ITEMS = 20;
-    private static final int NUM_MOVIE_GRID_SPAN_COUNT = 3;
+    private static final int NUM_MOVIE_GRID_SPAN_COUNT = 2;
     private MovieAdapter mAdapter;
     private RecyclerView mMovieGrid;
     private ProgressBar mProgressBar;
@@ -44,13 +45,14 @@ public class MainActivity extends AppCompatActivity
         mProgressBar = (ProgressBar) findViewById(R.id.pb_loading_indicator);
         mErrorMessage = (TextView) findViewById(R.id.tv_error_message);
 
+        int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.spacing);
+        GridItemDecoration gridItemStyle = new GridItemDecoration(spacingInPixels);
+        mMovieGrid.addItemDecoration(gridItemStyle);
+
         GridLayoutManager layoutManager = new GridLayoutManager(this, NUM_MOVIE_GRID_SPAN_COUNT);
         mMovieGrid.setLayoutManager(layoutManager);
-
         mMovieGrid.setHasFixedSize(true);
-
         mAdapter = new MovieAdapter(this);
-
         mMovieGrid.setAdapter(mAdapter);
 
         showTopRatedMovies();
