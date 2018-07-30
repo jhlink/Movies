@@ -93,23 +93,15 @@ public class MainActivity extends AppCompatActivity
     private void showTopRatedMovies() {
         Callback topRatedMoviesRequestCb =  getNetworkRequestCallback();
 
-        try {
-            onNetworkRequest();
-            MovieServiceAPI.getTopRatedMovies(this, topRatedMoviesRequestCb);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        onNetworkRequest();
+        MovieServiceAPI.getTopRatedMovies(this, topRatedMoviesRequestCb);
     }
 
     private void showPopularMovies() {
         Callback popularMoviesRequestCb = getNetworkRequestCallback();
 
-        try {
-            onNetworkRequest();
-            MovieServiceAPI.getPopularMovies(this, popularMoviesRequestCb);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        onNetworkRequest();
+        MovieServiceAPI.getPopularMovies(this, popularMoviesRequestCb);
     }
 
     private void onNetworkFailure() {
