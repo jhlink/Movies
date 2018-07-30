@@ -22,7 +22,7 @@ import static com.udacity.oliverh.movies.BR.movie;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> {
 
-    private List<Movie> mMovies = new ArrayList<Movie>();
+    private List<Movie> mMovies = new ArrayList<>();
     final private GridItemClickListener mOnClickListener;
 
     public interface GridItemClickListener {

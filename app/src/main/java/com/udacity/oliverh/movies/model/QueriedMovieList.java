@@ -7,7 +7,7 @@ public class QueriedMovieList {
     private int page;
     private int total_results;
     private int total_pages;
-    private List<Movie> results = new ArrayList<Movie>();
+    private List<Movie> results = new ArrayList<>();
 
     public QueriedMovieList () {}
 
