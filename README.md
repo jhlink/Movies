@@ -13,3 +13,5 @@
 - There may be some lag or frames that drop when switching between the two sort criteria. While this isn't ideal, there are definitely optimizations around this, which I do plan ( hopefully ) for Pt. 2. 
 
 - When executing lint within the Android Studio IDE, there are some warnings that were ignored, such as "FrameLayout" being replaced with the `<merge>` tag or `AllowBackup/FullBackupContent` issues. For the purposes of the project, these warnings have been ignored.  
+
+- Instead of using AsyncTask and HttpUrlConnection, OkHttp was used to make an asynchronous GET request to obtain all the necessary data specified in the the project rubric. It should be noted that when an OkHttp network request completes, a Runnable is utilized to apply UI updates as needed.
