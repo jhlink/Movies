@@ -23,6 +23,7 @@
             android:layout_marginStart="@dimen/zero"
             android:contentDescription="@string/thumbnail_of_movie_poster"
             app:imageUrl="@{movie.posterPath}"
+            app:imageSize="@{@string/thumbnailSize}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:background="@color/colorPrimary"
