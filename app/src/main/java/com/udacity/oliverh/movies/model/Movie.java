@@ -1,36 +1,72 @@
 package com.udacity.oliverh.movies.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.squareup.moshi.Json;
 
 import java.util.Date;
 
-public class Movie {
+public class Movie implements Parcelable {
     private String title;
     private Date release_date;
-    @Json(name = "poster_path") private String posterPath;
+    @Json(name = "poster_path")
+    private String posterPath;
     private double vote_average;
     private String overview;
 
-    public Movie () { }
-
-    public Movie ( String title,
-                   Date releaseDate,
-                   String moviePoster,
-                   double voteAverage,
-                   String plotSynopsis ) {
+    public Movie(String title,
+                 Date releaseDate,
+                 String moviePoster,
+                 double voteAverage,
+                 String plotSynopsis) {
         this.title = title;
         this.release_date = releaseDate;
         this.posterPath = moviePoster;
         this.vote_average = voteAverage;
         this.overview = plotSynopsis;
-
     }
+
+    private Movie(Parcel in) {
+        title = in.readString();
+        release_date = new Date(in.readLong());
+        posterPath = in.readString();
+        vote_average = in.readDouble();
+        overview = in.readString();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(title);
+        parcel.writeLong(release_date.getTime());
+        parcel.writeString(posterPath);
+        parcel.writeDouble(vote_average);
+        parcel.writeString(overview);
+    }
+
+    //  Transient modifer is used in context of Moshi to ignore emitting the CREATOR member property.
+    public transient static final Parcelable.Creator<Movie> CREATOR = new Parcelable.Creator<Movie>() {
+        @Override
+        public Movie createFromParcel(Parcel parcel) {
+            return new Movie(parcel);
+        }
+
+        @Override
+        public Movie[] newArray(int size) {
+            return new Movie[size];
+        }
+    };
 
     public String getPosterPath() {
         return posterPath;
     }
 
-    public void setPosterPath( String newPath ) {
+    public void setPosterPath(String newPath) {
         this.posterPath = newPath;
     }
 
