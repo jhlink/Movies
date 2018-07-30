@@ -8,6 +8,7 @@ import com.squareup.moshi.Json;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 public class Movie implements Parcelable {
     private String title;
@@ -90,7 +91,7 @@ public class Movie implements Parcelable {
     }
 
     public String getFormattedDate() {
-        SimpleDateFormat movieDetailFormat = new SimpleDateFormat("MMM dd, yyyy");
+        SimpleDateFormat movieDetailFormat = new SimpleDateFormat("MMM dd, yyyy", Locale.US);
         return movieDetailFormat.format(releaseDate);
     }
 
