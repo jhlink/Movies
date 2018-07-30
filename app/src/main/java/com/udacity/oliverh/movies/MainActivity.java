@@ -6,6 +6,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Window;
+import android.widget.Toast;
 
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
@@ -23,7 +24,8 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity
+    implements  MovieAdapter.GridItemClickListener {
     private static final int NUM_MOVIE_GRID_ITEMS = 20;
     private static final int NUM_MOVIE_GRID_SPAN_COUNT = 3;
     private MovieAdapter mAdapter;
@@ -41,11 +43,17 @@ public class MainActivity extends AppCompatActivity {
 
         mMovieGrid.setHasFixedSize(true);
 
-        mAdapter = new MovieAdapter();
+        mAdapter = new MovieAdapter(this);
 
         mMovieGrid.setAdapter(mAdapter);
 
         showTopRatedMovies();
+    }
+
+    @Override
+    public void onGridItemClick(Movie movie) {
+        Toast.makeText(this, movie.getTitle(), Toast.LENGTH_SHORT).show();
+        Log.i("TOASTY", movie.getTitle());
     }
 
     private void showTopRatedMovies() {
