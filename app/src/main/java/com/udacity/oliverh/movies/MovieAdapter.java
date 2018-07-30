@@ -3,16 +3,15 @@ package com.udacity.oliverh.movies;
 import android.content.Context;
 import android.databinding.BindingAdapter;
 import android.databinding.DataBindingUtil;
-import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
 import com.udacity.oliverh.movies.databinding.MovieGridItemBinding;
 import com.udacity.oliverh.movies.model.Movie;
-import com.udacity.oliverh.movies.utilities.MovieServiceAPI;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,11 +21,45 @@ import static com.udacity.oliverh.movies.BR.movie;
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> {
 
     private List<Movie> mMovies = new ArrayList<Movie>();
+    final private GridItemClickListener mOnClickListener;
 
-    public MovieAdapter( ) { }
+    public interface GridItemClickListener {
+        void onGridItemClick(Movie clickedMovie);
+    }
 
-    public MovieAdapter( List<Movie> movies ) {
-        this.mMovies = movies;
+    class MovieViewHolder extends RecyclerView.ViewHolder
+            implements View.OnClickListener {
+
+        private final MovieGridItemBinding movieGridItemBinding;
+
+        public MovieViewHolder(MovieGridItemBinding binding) {
+            super(binding.getRoot());
+
+            this.movieGridItemBinding = binding;
+            this.movieGridItemBinding.getRoot().setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            Movie clickedMovie = mMovies.get(getAdapterPosition());
+            mOnClickListener.onGridItemClick(clickedMovie);
+        }
+
+        void bind (Movie mMovie) {
+            movieGridItemBinding.setVariable(movie, mMovie);
+            movieGridItemBinding.executePendingBindings();
+        }
+    }
+
+    @BindingAdapter({"imageUrl"})
+    public static void loadImage(ImageView view, String url) {
+        Picasso.with(view.getContext())
+                .load(url)
+                .into(view);
+    }
+
+    public MovieAdapter( GridItemClickListener listener ) {
+        this.mOnClickListener = listener;
     }
 
     @Override
@@ -63,29 +96,9 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         return this.mMovies.size();
     }
 
-    @BindingAdapter({"imageUrl"})
-    public static void loadImage(ImageView view, String url) {
-        Picasso.with(view.getContext())
-                .load(url)
-                .into(view);
-    }
 
     public void setMovieListData ( List<Movie> movies ) {
         this.mMovies = movies;
     }
 
-    class MovieViewHolder extends RecyclerView.ViewHolder {
-        private final MovieGridItemBinding movieGridItemBinding;
-
-        public MovieViewHolder(MovieGridItemBinding binding) {
-            super(binding.getRoot());
-
-            this.movieGridItemBinding = binding;
-        }
-
-        void bind (Movie mMovie ) {
-            movieGridItemBinding.setVariable(movie, mMovie);
-            movieGridItemBinding.executePendingBindings();
-        }
-    }
 }
