@@ -22,8 +22,9 @@ public class MovieDetails extends AppCompatActivity {
 
         if (activityInitiatingIntent.hasExtra("MOVIE_DATA")) {
             Movie movieData = activityInitiatingIntent.getParcelableExtra("MOVIE_DATA");
-
             binding.setVariable(movie, movieData);
+            binding.executePendingBindings();
         }
     }
 }
+
