@@ -9,7 +9,10 @@
         android:id="@+id/rv_movies"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".MainActivity" />
+        tools:context=".MainActivity"
+        tools:layoutManager="android.support.v7.widget.GridLayoutManager"
+        tools:listitem="@layout/movie_grid_item"
+        tools:spanCount="2" />
 
     <ProgressBar
         android:id="@+id/pb_loading_indicator"
