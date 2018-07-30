@@ -7,13 +7,18 @@
     <string name="POPULAR_MOVIES_QUERY_STRING">popular</string>
     <string name="TOP_RATED_QUERY_STRING">top_rated</string>
     <string name="MOVIE_IMAGE_BASE_URL">http://image.tmdb.org/t/p/</string>
+    <string name="detailSize">w500</string>
+    <string name="thumbnailSize">w185</string>
 
     <!-- UI Text Strings-->
     <string name="top_rated">Top Rated</string>
     <string name="popular">Popular</string>
     <string name="network_error">Network Error: Failed to retrieve data. Please try again later.</string>
 
+
     <!--Test Strings-->
     <string name="testValue">GoForthAndBelieve</string>
     <string name="thumbnail_of_movie_poster">Thumbnail of Movie Poster</string>
+    <string name="overview_label">Plot Synopsis</string>
+    <string name="release_date_label">Release Date</string>
 </resources>
