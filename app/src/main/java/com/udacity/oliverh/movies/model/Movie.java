@@ -1,6 +1,5 @@
 package com.udacity.oliverh.movies.model;
 
-import android.databinding.Bindable;
 import android.os.Parcel;
 import android.os.Parcelable;
 
