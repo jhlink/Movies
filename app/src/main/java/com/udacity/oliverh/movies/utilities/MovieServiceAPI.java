@@ -48,8 +48,6 @@ public class MovieServiceAPI {
                 .url(builtUri)
                 .build();
 
-        String test;
-
         client.newCall(request).enqueue(cb);
     }
 
