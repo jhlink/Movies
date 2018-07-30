@@ -87,9 +87,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
                 shouldAttachToParentImmediately);
 
 
-        MovieViewHolder viewHolder = new MovieViewHolder(binding);
-
-        return viewHolder;
+        return new MovieViewHolder(binding);
     }
 
     @Override
