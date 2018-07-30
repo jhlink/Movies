@@ -9,11 +9,11 @@
     <string name="MOVIE_IMAGE_BASE_URL">http://image.tmdb.org/t/p/</string>
 
     <!-- UI Text Strings-->
-    <string name="movie_poster_thumbnail">Movie Poster Thumbnail</string>
     <string name="top_rated">Top Rated</string>
     <string name="popular">Popular</string>
     <string name="network_error">Network Error: Failed to retrieve data. Please try again later.</string>
 
     <!--Test Strings-->
     <string name="testValue">GoForthAndBelieve</string>
+    <string name="thumbnail_of_movie_poster">Thumbnail of Movie Poster</string>
 </resources>
