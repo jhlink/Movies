@@ -1,9 +1,6 @@
 package com.udacity.oliverh.movies.model;
 
-import android.util.Log;
-
 import com.squareup.moshi.Json;
-import com.udacity.oliverh.movies.utilities.MovieServiceAPI;
 
 import java.util.Date;
 
