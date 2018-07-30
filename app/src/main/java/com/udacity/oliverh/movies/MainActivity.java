@@ -58,31 +58,10 @@ public class MainActivity extends AppCompatActivity
         showTopRatedMovies();
     }
 
-    private void onNetworkFailure() {
-        mErrorMessage.setVisibility(View.VISIBLE);
-        mProgressBar.setVisibility(View.INVISIBLE);
-        mMovieGrid.setVisibility(View.INVISIBLE);
-    }
-
-    private void onNetworkRequest() {
-        mErrorMessage.setVisibility(View.GONE);
-        mProgressBar.setVisibility(View.VISIBLE);
-        mMovieGrid.setVisibility(View.INVISIBLE);
-    }
-
-    private void onNetworkSuccess() {
-        mMovieGrid.setVisibility(View.VISIBLE);
-        mErrorMessage.setVisibility(View.GONE);
-        mProgressBar.setVisibility(View.INVISIBLE);
-    }
-
-
     @Override
     public void onGridItemClick(Movie movie) {
-        Log.i("TOASTY", movie.getTitle());
-
         Intent movieDetailsIntent = new Intent(MainActivity.this, MovieDetails.class);
-        movieDetailsIntent.putExtra("MOVIE_DATA", movie);
+        movieDetailsIntent.putExtra(getString(R.string.ParcelID), movie);
         startActivity(movieDetailsIntent);
     }
 
@@ -113,32 +92,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void showTopRatedMovies() {
-        Callback topRatedMoviesRequestCb = new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                MainActivity.this.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        onNetworkFailure();
-                    }
-                });
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-
-                final QueriedMovieList movies = jsonListParser(response.body().string());
-
-                MainActivity.this.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        onNetworkSuccess();
-                        mAdapter.setMovieListData(movies.getResults());
-                        mAdapter.notifyDataSetChanged();
-                    }
-                });
-            }
-        };
+        Callback topRatedMoviesRequestCb =  getNetworkRequestCallback();
 
         try {
             onNetworkRequest();
@@ -149,7 +103,47 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void showPopularMovies() {
-        Callback popularMoviesRequestCb = new Callback() {
+        Callback popularMoviesRequestCb = getNetworkRequestCallback();
+
+        try {
+            onNetworkRequest();
+            MovieServiceAPI.getPopularMovies(this, popularMoviesRequestCb);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void onNetworkFailure() {
+        mErrorMessage.setVisibility(View.VISIBLE);
+        mProgressBar.setVisibility(View.INVISIBLE);
+        mMovieGrid.setVisibility(View.INVISIBLE);
+    }
+
+    private void onNetworkRequest() {
+        mErrorMessage.setVisibility(View.GONE);
+        mProgressBar.setVisibility(View.VISIBLE);
+        mMovieGrid.setVisibility(View.INVISIBLE);
+    }
+
+    private void onNetworkSuccess() {
+        mMovieGrid.setVisibility(View.VISIBLE);
+        mErrorMessage.setVisibility(View.GONE);
+        mProgressBar.setVisibility(View.INVISIBLE);
+    }
+
+    private QueriedMovieList jsonListParser(String jsonResponse) throws IOException {
+        Moshi moshi = new Moshi.Builder()
+                .add(new DateAdapter())
+                .build();
+
+        JsonAdapter<QueriedMovieList> jsonAdapter = moshi.adapter(QueriedMovieList.class);
+
+        QueriedMovieList result = jsonAdapter.fromJson(jsonResponse);
+        return result;
+    }
+
+    private Callback getNetworkRequestCallback() {
+        Callback networkCallback = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 MainActivity.this.runOnUiThread(new Runnable() {
@@ -175,22 +169,6 @@ public class MainActivity extends AppCompatActivity
             }
         };
 
-        try {
-            onNetworkRequest();
-            MovieServiceAPI.getPopularMovies(this, popularMoviesRequestCb);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public QueriedMovieList jsonListParser(String jsonResponse) throws IOException {
-        Moshi moshi = new Moshi.Builder()
-                .add(new DateAdapter())
-                .build();
-
-        JsonAdapter<QueriedMovieList> jsonAdapter = moshi.adapter(QueriedMovieList.class);
-
-        QueriedMovieList result = jsonAdapter.fromJson(jsonResponse);
-        return result;
+        return networkCallback;
     }
 }
