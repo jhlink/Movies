@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="spacing">5dp</dimen>
+    <dimen name="movieTitleTextWidth">100dp</dimen>
+    <dimen name="movieTitleGridMarginSpacing">16dp</dimen>
+    <dimen name="zero">0dp</dimen>
 </resources>
