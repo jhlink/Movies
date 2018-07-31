@@ -22,4 +22,5 @@
     <string name="overview_label">Plot Synopsis</string>
     <string name="release_date_label">Release Date</string>
     <string name="ParcelID">MOVIE_DATA</string>
+    <string name="GRID_LAYOUT_STATE_PARCELABLE_KEY">GRID_LAYOUT_STATE</string>
 </resources>

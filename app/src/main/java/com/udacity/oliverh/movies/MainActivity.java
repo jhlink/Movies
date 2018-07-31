@@ -1,10 +1,14 @@
 package com.udacity.oliverh.movies;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
+import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.AttributeSet;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -28,11 +32,13 @@ import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity
         implements MovieAdapter.GridItemClickListener {
+    private static final int GRID_STATE_KEY = R.string.GRID_LAYOUT_STATE_PARCELABLE_KEY;
     private static final int NUM_MOVIE_GRID_SPAN_COUNT = 2;
     private MovieAdapter mAdapter;
     private RecyclerView mMovieGrid;
     private ProgressBar mProgressBar;
     private TextView mErrorMessage;
+    private Parcelable mState;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +60,33 @@ public class MainActivity extends AppCompatActivity
         mMovieGrid.setAdapter(mAdapter);
 
         showTopRatedMovies();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        String gridStateParcelableKey = getString(GRID_STATE_KEY);
+
+        mState = mMovieGrid.getLayoutManager().onSaveInstanceState();
+        outState.putParcelable(gridStateParcelableKey, mState);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        if (savedInstanceState != null) {
+            String gridStateParcelableKey = getString(GRID_STATE_KEY);
+            mState = savedInstanceState.getParcelable(gridStateParcelableKey);
+        }
+    }
+
+    private void restorePosition() {
+        if (mState != null) {
+            mMovieGrid.getLayoutManager().onRestoreInstanceState(mState);
+            mState = null;
+        }
     }
 
     @Override
@@ -154,6 +187,7 @@ public class MainActivity extends AppCompatActivity
                         onNetworkSuccess();
                         mAdapter.setMovieListData(movies.getResults());
                         mAdapter.notifyDataSetChanged();
+                        restorePosition();
                     }
                 });
             }
