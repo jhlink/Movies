@@ -8,7 +8,7 @@
     <string name="TOP_RATED_QUERY_STRING">top_rated</string>
     <string name="MOVIE_IMAGE_BASE_URL">http://image.tmdb.org/t/p/</string>
     <string name="detailSize">w500</string>
-    <string name="thumbnailSize">w185</string>
+    <string name="thumbnailSize">w342</string>
 
     <!-- UI Text Strings-->
     <string name="top_rated">Top Rated</string>
