@@ -1,5 +1,8 @@
 package com.udacity.oliverh.movies.data.database;
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.PrimaryKey;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -9,7 +12,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+@Entity
 public class Movie implements Parcelable {
+
+    @PrimaryKey(autoGenerate = true)
+    private int id;
+
     private String title;
 
     @Json(name = "release_date")
@@ -22,6 +30,7 @@ public class Movie implements Parcelable {
     private float voteAverage;
     private String overview;
 
+    @Ignore
     public Movie(String title,
                  Date releaseDate,
                  String moviePoster,
@@ -34,6 +43,21 @@ public class Movie implements Parcelable {
         this.overview = plotSynopsis;
     }
 
+    public Movie(int id,
+                 String title,
+                 Date releaseDate,
+                 String moviePoster,
+                 float voteAverage,
+                 String plotSynopsis) {
+        this.id = id;
+        this.title = title;
+        this.releaseDate = releaseDate;
+        this.posterPath = moviePoster;
+        this.voteAverage = voteAverage;
+        this.overview = plotSynopsis;
+    }
+
+    @Ignore
     private Movie(Parcel in) {
         title = in.readString();
         releaseDate = new Date(in.readLong());
