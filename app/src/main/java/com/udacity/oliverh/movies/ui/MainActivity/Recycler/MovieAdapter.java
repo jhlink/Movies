@@ -1,4 +1,4 @@
-package com.udacity.oliverh.movies.utilities.Recycler;
+package com.udacity.oliverh.movies.ui.MainActivity.Recycler;
 
 import android.content.Context;
 import android.databinding.BindingAdapter;
@@ -13,7 +13,7 @@ import com.squareup.picasso.Picasso;
 import com.udacity.oliverh.movies.R;
 import com.udacity.oliverh.movies.databinding.MovieGridItemBinding;
 import com.udacity.oliverh.movies.data.database.Movie;
-import com.udacity.oliverh.movies.utilities.MovieServiceAPI;
+import com.udacity.oliverh.movies.data.network.MovieServiceAPI;
 
 import java.util.ArrayList;
 import java.util.List;

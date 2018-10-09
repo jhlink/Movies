@@ -18,10 +18,10 @@ import com.udacity.oliverh.movies.ui.MovieDetails.MovieDetails;
 import com.udacity.oliverh.movies.R;
 import com.udacity.oliverh.movies.data.database.Movie;
 import com.udacity.oliverh.movies.data.database.QueriedMovieList;
-import com.udacity.oliverh.movies.utilities.MoshiAdapters.DateAdapter;
-import com.udacity.oliverh.movies.utilities.MovieServiceAPI;
-import com.udacity.oliverh.movies.utilities.Recycler.GridItemDecoration;
-import com.udacity.oliverh.movies.utilities.Recycler.MovieAdapter;
+import com.udacity.oliverh.movies.data.network.MoshiAdapters.DateAdapter;
+import com.udacity.oliverh.movies.data.network.MovieServiceAPI;
+import com.udacity.oliverh.movies.ui.MainActivity.Recycler.GridItemDecoration;
+import com.udacity.oliverh.movies.ui.MainActivity.Recycler.MovieAdapter;
 
 import java.io.IOException;
 

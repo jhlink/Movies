@@ -1,4 +1,4 @@
-package com.udacity.oliverh.movies.utilities.Recycler;
+package com.udacity.oliverh.movies.ui.MainActivity.Recycler;
 
 import android.graphics.Rect;
 import android.support.annotation.NonNull;
