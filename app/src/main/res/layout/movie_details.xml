@@ -7,7 +7,7 @@
 
         <variable
             name="movie"
-            type="com.udacity.oliverh.movies.model.Movie" />
+            type="com.udacity.oliverh.movies.data.database.Movie" />
     </data>
 
 

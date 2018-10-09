@@ -1,14 +1,11 @@
 package com.udacity.oliverh.movies;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.AttributeSet;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,8 +14,8 @@ import android.widget.TextView;
 
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
-import com.udacity.oliverh.movies.model.Movie;
-import com.udacity.oliverh.movies.model.QueriedMovieList;
+import com.udacity.oliverh.movies.data.database.Movie;
+import com.udacity.oliverh.movies.data.database.QueriedMovieList;
 import com.udacity.oliverh.movies.utilities.MoshiAdapters.DateAdapter;
 import com.udacity.oliverh.movies.utilities.MovieServiceAPI;
 import com.udacity.oliverh.movies.utilities.Recycler.GridItemDecoration;

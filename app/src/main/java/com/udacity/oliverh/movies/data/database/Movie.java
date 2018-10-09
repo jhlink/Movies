@@ -1,4 +1,4 @@
-package com.udacity.oliverh.movies.model;
+package com.udacity.oliverh.movies.data.database;
 
 import android.os.Parcel;
 import android.os.Parcelable;

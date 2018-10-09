@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import com.udacity.oliverh.movies.databinding.MovieDetailsBinding;
-import com.udacity.oliverh.movies.model.Movie;
+import com.udacity.oliverh.movies.data.database.Movie;
 
 import static com.udacity.oliverh.movies.BR.movie;
 

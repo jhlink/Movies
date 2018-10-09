@@ -12,7 +12,7 @@ import android.widget.ImageView;
 import com.squareup.picasso.Picasso;
 import com.udacity.oliverh.movies.R;
 import com.udacity.oliverh.movies.databinding.MovieGridItemBinding;
-import com.udacity.oliverh.movies.model.Movie;
+import com.udacity.oliverh.movies.data.database.Movie;
 import com.udacity.oliverh.movies.utilities.MovieServiceAPI;
 
 import java.util.ArrayList;

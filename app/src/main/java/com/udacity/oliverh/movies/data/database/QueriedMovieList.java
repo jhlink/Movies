@@ -1,4 +1,4 @@
-package com.udacity.oliverh.movies.model;
+package com.udacity.oliverh.movies.data.database;
 
 import java.util.ArrayList;
 import java.util.List;
