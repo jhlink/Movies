@@ -6,12 +6,15 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import com.udacity.oliverh.movies.R;
+import com.udacity.oliverh.movies.data.database.AppDatabase;
 import com.udacity.oliverh.movies.databinding.MovieDetailsBinding;
 import com.udacity.oliverh.movies.data.database.Movie;
 
 import static com.udacity.oliverh.movies.BR.movie;
 
 public class MovieDetails extends AppCompatActivity {
+
+    private AppDatabase mDb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +24,8 @@ public class MovieDetails extends AppCompatActivity {
 
         Intent activityInitiatingIntent = getIntent();
 
+        mDb = AppDatabase.getInstance(getApplicationContext());
+
         String parcelTag = getString(R.string.ParcelID);
         if (activityInitiatingIntent.hasExtra(parcelTag)) {
             Movie movieData = activityInitiatingIntent.getParcelableExtra(parcelTag);
@@ -28,5 +33,7 @@ public class MovieDetails extends AppCompatActivity {
             binding.executePendingBindings();
         }
     }
+
+
 }
 
