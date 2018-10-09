@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="movie"
             type="com.udacity.oliverh.movies.data.database.Movie" />
@@ -51,18 +50,36 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/movieTitle"
+                <TableRow
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginRight="16dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
-                    android:text="@{movie.title}"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                    tools:text="Inception" />
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:visibility="visible">
+
+                    <ToggleButton
+                        android:id="@+id/favoriteBtn"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/fav_toggle_button"
+                        android:textOff=""
+                        android:textOn="" />
+
+                    <TextView
+                        android:id="@+id/movieTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_weight="4"
+                        android:text="@{movie.title}"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                        tools:text="Inception" />
+
+                </TableRow>
 
                 <RatingBar
                     android:id="@+id/ratingBar"
@@ -129,6 +146,7 @@
                 <Space
                     android:layout_width="match_parent"
                     android:layout_height="50dp" />
+
             </LinearLayout>
         </ScrollView>
     </android.support.constraint.ConstraintLayout>
