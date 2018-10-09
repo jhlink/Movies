@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.View;
 
 import com.udacity.oliverh.movies.R;
 import com.udacity.oliverh.movies.data.database.AppDatabase;
@@ -14,6 +16,7 @@ import static com.udacity.oliverh.movies.BR.movie;
 
 public class MovieDetails extends AppCompatActivity {
 
+    private final static String MOVIE_DETAILS_TAG = MovieDetails.class.getSimpleName();
     private AppDatabase mDb;
 
     @Override
@@ -34,6 +37,14 @@ public class MovieDetails extends AppCompatActivity {
         }
     }
 
+    public void onClickFavoriteBtn(View view) {
+        Log.d(MOVIE_DETAILS_TAG, "Button clicked.");
+        if (view.isPressed()) {
+            Log.d(MOVIE_DETAILS_TAG, "Button pressed state.");
+        } else {
+            Log.d(MOVIE_DETAILS_TAG, "Button default state.");
+        }
+    }
 
 }
 
