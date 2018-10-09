@@ -33,33 +33,34 @@ public class Movie implements Parcelable {
     @Json(name = "vote_average")
     private float voteAverage;
 
-    private String overview;
+    @ColumnInfo(name = "plot_synopsis")
+    private String plotSynopsis;
 
     @Ignore
     public Movie(String title,
                  Date releaseDate,
-                 String moviePoster,
+                 String posterPath,
                  float voteAverage,
                  String plotSynopsis) {
         this.title = title;
         this.releaseDate = releaseDate;
-        this.posterPath = moviePoster;
+        this.posterPath = posterPath;
         this.voteAverage = voteAverage;
-        this.overview = plotSynopsis;
+        this.plotSynopsis = plotSynopsis;
     }
 
     public Movie(int id,
                  String title,
                  Date releaseDate,
-                 String moviePoster,
+                 String posterPath,
                  float voteAverage,
                  String plotSynopsis) {
         this.id = id;
         this.title = title;
         this.releaseDate = releaseDate;
-        this.posterPath = moviePoster;
+        this.posterPath = posterPath;
         this.voteAverage = voteAverage;
-        this.overview = plotSynopsis;
+        this.plotSynopsis = plotSynopsis;
     }
 
     @Ignore
@@ -68,7 +69,7 @@ public class Movie implements Parcelable {
         releaseDate = new Date(in.readLong());
         posterPath = in.readString();
         voteAverage = in.readFloat();
-        overview = in.readString();
+        plotSynopsis = in.readString();
     }
 
     @Override
@@ -82,7 +83,7 @@ public class Movie implements Parcelable {
         parcel.writeLong(releaseDate.getTime());
         parcel.writeString(posterPath);
         parcel.writeFloat(voteAverage);
-        parcel.writeString(overview);
+        parcel.writeString(plotSynopsis);
     }
 
     //  Transient modifer is used in context of Moshi to ignore emitting the CREATOR member property.
@@ -97,6 +98,14 @@ public class Movie implements Parcelable {
             return new Movie[size];
         }
     };
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getPosterPath() {
         return posterPath;
@@ -136,10 +145,10 @@ public class Movie implements Parcelable {
     }
 
     public String getPlotSynopsis() {
-        return overview;
+        return plotSynopsis;
     }
 
     public void setPlotSynopsis(String plotSynopsis) {
-        this.overview = plotSynopsis;
+        this.plotSynopsis = plotSynopsis;
     }
 }
