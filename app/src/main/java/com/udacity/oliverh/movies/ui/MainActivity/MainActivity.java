@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
-import com.udacity.oliverh.movies.ui.MovieDetails.MovieDetails;
+import com.udacity.oliverh.movies.ui.MovieDetails.MovieDetailView;
 import com.udacity.oliverh.movies.R;
 import com.udacity.oliverh.movies.data.database.Movie;
 import com.udacity.oliverh.movies.data.database.QueriedMovieList;
@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onGridItemClick(Movie movie) {
-        Intent movieDetailsIntent = new Intent(MainActivity.this, MovieDetails.class);
+        Intent movieDetailsIntent = new Intent(MainActivity.this, MovieDetailView.class);
         String parcelTag = getString(R.string.ParcelID);
         movieDetailsIntent.putExtra(parcelTag, movie);
         startActivity(movieDetailsIntent);
