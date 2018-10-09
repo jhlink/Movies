@@ -1,4 +1,4 @@
-package com.udacity.oliverh.movies;
+package com.udacity.oliverh.movies.ui.MainActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,6 +14,8 @@ import android.widget.TextView;
 
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
+import com.udacity.oliverh.movies.ui.MovieDetails.MovieDetails;
+import com.udacity.oliverh.movies.R;
 import com.udacity.oliverh.movies.data.database.Movie;
 import com.udacity.oliverh.movies.data.database.QueriedMovieList;
 import com.udacity.oliverh.movies.utilities.MoshiAdapters.DateAdapter;

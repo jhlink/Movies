@@ -1,10 +1,11 @@
-package com.udacity.oliverh.movies;
+package com.udacity.oliverh.movies.ui.MovieDetails;
 
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+import com.udacity.oliverh.movies.R;
 import com.udacity.oliverh.movies.databinding.MovieDetailsBinding;
 import com.udacity.oliverh.movies.data.database.Movie;
 
