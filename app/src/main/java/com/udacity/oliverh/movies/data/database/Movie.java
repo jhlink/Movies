@@ -1,5 +1,6 @@
 package com.udacity.oliverh.movies.data.database;
 
+import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
@@ -20,14 +21,18 @@ public class Movie implements Parcelable {
 
     private String title;
 
+    @ColumnInfo(name = "release_date")
     @Json(name = "release_date")
     private Date releaseDate;
 
+    @ColumnInfo(name = "poster_path")
     @Json(name = "poster_path")
     private String posterPath;
 
+    @ColumnInfo(name = "vote_average")
     @Json(name = "vote_average")
     private float voteAverage;
+
     private String overview;
 
     @Ignore
