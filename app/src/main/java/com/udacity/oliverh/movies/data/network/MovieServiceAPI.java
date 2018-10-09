@@ -1,11 +1,9 @@
-package com.udacity.oliverh.movies.utilities;
+package com.udacity.oliverh.movies.data.network;
 
 import android.content.Context;
 
 import com.udacity.oliverh.movies.BuildConfig;
 import com.udacity.oliverh.movies.R;
-
-import java.io.IOException;
 
 import okhttp3.Callback;
 import okhttp3.HttpUrl;

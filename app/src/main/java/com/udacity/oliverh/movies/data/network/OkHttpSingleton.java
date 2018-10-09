@@ -1,4 +1,4 @@
-package com.udacity.oliverh.movies.utilities;
+package com.udacity.oliverh.movies.data.network;
 
 import okhttp3.OkHttpClient;
 

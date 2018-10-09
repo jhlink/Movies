@@ -1,4 +1,4 @@
-package com.udacity.oliverh.movies.utilities.MoshiAdapters;
+package com.udacity.oliverh.movies.data.network.MoshiAdapters;
 
 import android.util.Log;
 
