@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@android:drawable/btn_star_big_on"
+        android:state_pressed="true" />
+    <item android:drawable="@android:drawable/btn_star_big_off" />
+</selector>
+
+<!--*
+Note: The order of the <item> elements is important.
+
+When this drawable is referenced, the <item> elements are traversed in-order to determine which one is appropriate for the current button state.
+Because the default bitmap is last, it is only applied when the conditions android:state_pressed and android:state_focused have both evaluated as false.
+-->
