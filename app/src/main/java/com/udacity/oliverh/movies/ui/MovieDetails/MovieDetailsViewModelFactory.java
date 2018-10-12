@@ -17,7 +17,7 @@ public class MovieDetailsViewModelFactory extends ViewModelProvider.NewInstanceF
 
     @Override
     public <T extends ViewModel> T create(Class<T> modelClass) {
-        return (T) new MovieDetailsViewModel(movieRepository);
+        return (T) new MovieDetailsViewModel(movieRepository, mMovieId);
 
     }
 }
