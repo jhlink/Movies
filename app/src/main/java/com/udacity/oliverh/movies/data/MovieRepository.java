@@ -35,7 +35,7 @@ public class MovieRepository {
         return sInstance;
     }
 
-    LiveData<List<Movie>> getAllFavoriteMovies() {
+    public LiveData<List<Movie>> getAllFavoriteMovies() {
         return mAllFavoriteMovies;
     }
 
