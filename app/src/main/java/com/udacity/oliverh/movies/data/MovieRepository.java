@@ -4,6 +4,7 @@ import android.app.Application;
 import android.arch.lifecycle.LiveData;
 import android.os.AsyncTask;
 
+import com.udacity.oliverh.movies.AppExecutors;
 import com.udacity.oliverh.movies.data.database.AppDatabase;
 import com.udacity.oliverh.movies.data.database.Movie;
 import com.udacity.oliverh.movies.data.database.MovieDao;
@@ -11,34 +12,39 @@ import com.udacity.oliverh.movies.data.database.MovieDao;
 import java.util.List;
 
 public class MovieRepository {
+
+    private static MovieRepository sInstance;
+    private final AppDatabase mDb;
     private MovieDao mMovieDao;
     private LiveData<List<Movie>> mAllFavoriteMovies;
 
-    MovieRepository(Application application) {
-        AppDatabase db = AppDatabase.getInstance(application);
-        mMovieDao = db.movieDao();
+    private MovieRepository(final AppDatabase database) {
+        mDb = database;
+        mMovieDao = mDb.movieDao();
         mAllFavoriteMovies = mMovieDao.loadAllFavoriteMovies();
+    }
+
+    public static MovieRepository getInstance(final AppDatabase database) {
+        if (sInstance == null) {
+            synchronized (MovieRepository.class) {
+                if (sInstance == null) {
+                    sInstance = new MovieRepository(database);
+                }
+            }
+        }
+        return sInstance;
     }
 
     LiveData<List<Movie>> getAllFavoriteMovies() {
         return mAllFavoriteMovies;
     }
 
-    public void insert(Movie movie) {
-        new insertAsyncTask(mMovieDao).execute(movie);
-    }
-
-    private static class insertAsyncTask extends AsyncTask<Movie, Void, Void> {
-        private MovieDao mAsyncTaskDao;
-
-        insertAsyncTask(MovieDao dao) {
-            mAsyncTaskDao = dao;
-        }
-
-        @Override
-        protected Void doInBackground(final Movie... params) {
-            mAsyncTaskDao.insertMovie(params[0]);
-            return null;
-        }
+    public void insert(final Movie movie) {
+        AppExecutors.getInstance().diskIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                mMovieDao.insertMovie(movie);
+            }
+        });
     }
 }
