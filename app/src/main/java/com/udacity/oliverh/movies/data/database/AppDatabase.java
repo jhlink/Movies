@@ -12,11 +12,13 @@ import android.util.Log;
 public abstract class AppDatabase extends RoomDatabase {
 
     private static final String LOG_TAG = AppDatabase.class.getSimpleName();
-    private static final Object LOCK = new Object();
-    private static final String DATABASE_NAME = "todolist";
-    private static AppDatabase ourInstance;
+    private static final Object LOCK = AppDatabase.class;
+    private static final String DATABASE_NAME = "moviedb";
+    private static volatile AppDatabase ourInstance;
 
-    public static AppDatabase getInstance(Context context) {
+    public abstract MovieDao movieDao();
+
+    public static AppDatabase getInstance(final Context context) {
         if (ourInstance == null) {
             synchronized (LOCK) {
                 Log.d(LOG_TAG, "Creating new database instance");
@@ -29,6 +31,4 @@ public abstract class AppDatabase extends RoomDatabase {
         Log.d(LOG_TAG, "Getting database instance");
         return ourInstance;
     }
-
-    public abstract MovieDao taskDao();
 }
