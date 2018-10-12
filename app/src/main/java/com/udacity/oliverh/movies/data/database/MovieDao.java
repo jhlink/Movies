@@ -17,6 +17,9 @@ public interface MovieDao {
    @Insert
    void insertMovie(Movie movie);
 
+   @Query("SELECT * FROM movie WHERE id =:movieId")
+   LiveData<Movie> getMovieById(int movieId);
+
    @Delete
    void deleteMovie(Movie movie);
 }

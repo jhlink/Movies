@@ -39,6 +39,10 @@ public class MovieRepository {
         return mAllFavoriteMovies;
     }
 
+    public LiveData<Movie> getMovie(final int movieId) {
+        return mMovieDao.getMovieById(movieId);
+    }
+
     public void insert(final Movie movie) {
         AppExecutors.getInstance().diskIO().execute(new Runnable() {
             @Override
