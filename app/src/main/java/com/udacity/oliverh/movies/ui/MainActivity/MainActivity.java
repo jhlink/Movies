@@ -1,8 +1,12 @@
 package com.udacity.oliverh.movies.ui.MainActivity;
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProvider;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -24,6 +28,7 @@ import com.udacity.oliverh.movies.ui.MainActivity.Recycler.GridItemDecoration;
 import com.udacity.oliverh.movies.ui.MainActivity.Recycler.MovieAdapter;
 
 import java.io.IOException;
+import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -38,6 +43,7 @@ public class MainActivity extends AppCompatActivity
     private ProgressBar mProgressBar;
     private TextView mErrorMessage;
     private Parcelable mState;
+    private MainActivityViewModel mainActivityViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +64,19 @@ public class MainActivity extends AppCompatActivity
         mAdapter = new MovieAdapter(this);
         mMovieGrid.setAdapter(mAdapter);
 
+        setupViewModel();
+
         showTopRatedMovies();
+    }
+
+    private void setupViewModel() {
+        mainActivityViewModel = ViewModelProviders.of(this).get(MainActivityViewModel.class);
+        mainActivityViewModel.getFavoriteMovies().observe(this, new Observer<List<Movie>>() {
+            @Override
+            public void onChanged(@Nullable List<Movie> movies) {
+                mAdapter.setMovieListData(movies);
+            }
+        });
     }
 
     @Override
