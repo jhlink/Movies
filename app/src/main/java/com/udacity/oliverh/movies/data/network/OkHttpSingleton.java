@@ -1,5 +1,7 @@
 package com.udacity.oliverh.movies.data.network;
 
+import com.facebook.stetho.okhttp3.StethoInterceptor;
+
 import okhttp3.OkHttpClient;
 
 public class OkHttpSingleton {
@@ -9,6 +11,7 @@ public class OkHttpSingleton {
 
     private OkHttpSingleton() {
         client = new OkHttpClient.Builder()
+                .addNetworkInterceptor(new StethoInterceptor())
                 .retryOnConnectionFailure(true)
                 .build();
     }

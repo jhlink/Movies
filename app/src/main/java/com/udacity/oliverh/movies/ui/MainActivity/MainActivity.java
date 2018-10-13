@@ -3,6 +3,7 @@ package com.udacity.oliverh.movies.ui.MainActivity;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -16,6 +17,7 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.facebook.stetho.Stetho;
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
 import com.udacity.oliverh.movies.ui.MovieDetails.MovieDetails;
@@ -48,6 +50,9 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        initializeStetho();
+
         setContentView(R.layout.activity_main);
 
         mMovieGrid =  findViewById(R.id.rv_movies);
@@ -67,6 +72,10 @@ public class MainActivity extends AppCompatActivity
         setupViewModel();
 
         showTopRatedMovies();
+    }
+
+    private void initializeStetho() {
+        Stetho.initializeWithDefaults(this);
     }
 
     private void setupViewModel() {
