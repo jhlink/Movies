@@ -28,7 +28,7 @@ public class MovieDetails extends AppCompatActivity {
 
         Intent activityInitiatingIntent = getIntent();
 
-        mDb = AppDatabase.getInstance(getApplicationContext());
+        //mDb = AppDatabase.getInstance(getApplicationContext());
 
         String parcelTag = getString(R.string.ParcelID);
         if (activityInitiatingIntent.hasExtra(parcelTag)) {
