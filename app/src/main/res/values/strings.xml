@@ -6,7 +6,7 @@
     <string name="API_KEY_QUERY_STRING">api_key</string>
     <string name="POPULAR_MOVIES_QUERY_STRING">popular</string>
     <string name="TOP_RATED_QUERY_STRING">top_rated</string>
-    <string name="MOVIE_IMAGE_BASE_URL">http://image.tmdb.org/t/p/</string>
+    <string name="MOVIE_IMAGE_BASE_URL">https://image.tmdb.org/t/p/</string>
     <string name="detailSize">w500</string>
     <string name="thumbnailSize">w342</string>
 
