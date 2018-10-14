@@ -11,9 +11,9 @@ import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
 import com.udacity.oliverh.movies.R;
-import com.udacity.oliverh.movies.databinding.MovieGridItemBinding;
 import com.udacity.oliverh.movies.data.database.Movie;
 import com.udacity.oliverh.movies.data.network.MovieServiceAPI;
+import com.udacity.oliverh.movies.databinding.MovieGridItemBinding;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,15 +55,17 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
     @BindingAdapter({"imageUrl", "imageSize"})
     public static void loadImage(ImageView view, String url, String imageSize) {
-        String moviePosterUrl = MovieServiceAPI.getMoviePosterUrl(view.getContext(),
-                imageSize,
-                url.substring(1));
+        if (url != null) {
+            String moviePosterUrl = MovieServiceAPI.getMoviePosterUrl(view.getContext(),
+                    imageSize,
+                    url.substring(1));
 
-        Picasso.get()
-                .load(moviePosterUrl)
-                .placeholder(R.drawable.ic_image)
-                .error(R.drawable.ic_broken_image)
-                .into(view);
+            Picasso.get()
+                    .load(moviePosterUrl)
+                    .placeholder(R.drawable.ic_image)
+                    .error(R.drawable.ic_broken_image)
+                    .into(view);
+        }
     }
 
     public MovieAdapter( GridItemClickListener listener ) {
