@@ -59,7 +59,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
                 imageSize,
                 url.substring(1));
 
-        Picasso.with(view.getContext())
+        Picasso.get()
                 .load(moviePosterUrl)
                 .placeholder(R.drawable.ic_image)
                 .error(R.drawable.ic_broken_image)
