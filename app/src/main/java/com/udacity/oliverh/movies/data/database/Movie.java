@@ -33,7 +33,7 @@ public class Movie implements Parcelable {
     @Json(name = "vote_average")
     private float voteAverage;
 
-    @ColumnInfo(name = "plot_synopsis")
+    @Json(name = "overview")
     private String plotSynopsis;
 
     @Ignore
