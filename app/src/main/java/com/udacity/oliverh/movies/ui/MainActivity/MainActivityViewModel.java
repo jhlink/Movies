@@ -44,8 +44,25 @@ public class MainActivityViewModel extends AndroidViewModel {
                 });
     }
 
+    public void fetchPopularMovies() {
+        Log.d(TAG, "Fetch PopularMovies from MainActivityViewModel");
+        movieApiResponse.addSource(mRepository.getPopularMovies(this.getApplication().getApplicationContext()),
+                new Observer<ApiResponse>() {
+                    @Override
+                    public void onChanged(@Nullable ApiResponse apiResponse) {
+                        Log.d(TAG, "Update PopularMovie list");
+                        movieApiResponse.setValue(apiResponse);
+                    }
+                });
+    }
+
     public LiveData<ApiResponse> getTopRatedMovies() {
         Log.d(TAG, "Get TopRatedMovies");
+        return movieApiResponse;
+    }
+
+    public LiveData<ApiResponse> getPopularMovies() {
+        Log.d(TAG, "Get PopularMovies");
         return movieApiResponse;
     }
 
