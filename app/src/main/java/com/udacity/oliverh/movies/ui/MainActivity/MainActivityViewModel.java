@@ -6,6 +6,7 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MediatorLiveData;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModel;
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -25,31 +26,27 @@ public class MainActivityViewModel extends AndroidViewModel {
 
     public MainActivityViewModel(@NonNull Application application) {
         super(application);
-        AppDatabase database = AppDatabase.getInstance(this.getApplication());
+        AppDatabase database = AppDatabase.getInstance(application);
         mRepository = MovieRepository.getInstance(database);
         movieApiResponse = new MediatorLiveData<>();
-        fetchTopRatedMovies();
     }
 
-    public void fetchTopRatedMovies() {
+    public void fetchTopRatedMovies(Context mContext) {
         Log.d(TAG, "Fetch TopRatedMovies -> MovieRepository");
-        movieApiResponse.addSource(mRepository.getTopRatedMovies(this.getApplication().getApplicationContext()),
-                new Observer<ApiResponse>() {
-                    @Override
-                    public void onChanged(@Nullable ApiResponse apiResponse) {
-                        Log.d(TAG, "Update TopRatedMovies list");
-                        movieApiResponse.setValue(apiResponse);
-                    }
-                });
+        fetchMovieList(mRepository.getTopRatedMovies(mContext));
     }
 
-    public void fetchPopularMovies() {
+    public void fetchPopularMovies(Context mContext) {
         Log.d(TAG, "Fetch PopularMovies -> MovieRepository");
-        movieApiResponse.addSource(mRepository.getPopularMovies(this.getApplication().getApplicationContext()),
+        fetchMovieList(mRepository.getPopularMovies(mContext));
+    }
+
+    private void fetchMovieList(LiveData<ApiResponse> movieList) {
+        movieApiResponse.addSource(movieList,
                 new Observer<ApiResponse>() {
                     @Override
                     public void onChanged(@Nullable ApiResponse apiResponse) {
-                        Log.d(TAG, "Update PopularMovie list");
+                        Log.d(TAG, "Updated movie list");
                         movieApiResponse.setValue(apiResponse);
                     }
                 });

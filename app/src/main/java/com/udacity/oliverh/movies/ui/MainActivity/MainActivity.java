@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void setupViewModel() {
-        Log.d(TAG, "Setup View Model for TopMovie list");
+        Log.d(TAG, "Setup View Model for Main Activity");
         mainActivityViewModel = ViewModelProviders.of(this).get(MainActivityViewModel.class);
         mainActivityViewModel.getData().observe(this, new Observer<ApiResponse>() {
             @Override
@@ -155,15 +155,15 @@ public class MainActivity extends AppCompatActivity
         onNetworkRequest();
         switch (selectedMenuItem) {
             case R.id.action_popular:
-                mainActivityViewModel.fetchPopularMovies();
+                mainActivityViewModel.fetchPopularMovies(getApplicationContext());
                 return true;
 
             case R.id.action_top_rated:
-                mainActivityViewModel.fetchTopRatedMovies();
+                mainActivityViewModel.fetchTopRatedMovies(getApplicationContext());
                 return true;
 
             default:
-                mainActivityViewModel.fetchPopularMovies();
+                mainActivityViewModel.fetchPopularMovies(getApplicationContext());
         }
 
         return super.onOptionsItemSelected(item);
