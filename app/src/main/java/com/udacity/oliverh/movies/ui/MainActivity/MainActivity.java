@@ -23,7 +23,7 @@ import com.facebook.stetho.Stetho;
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
 import com.udacity.oliverh.movies.data.network.ApiResponse;
-import com.udacity.oliverh.movies.ui.MovieDetails.MovieDetails;
+import com.udacity.oliverh.movies.ui.MovieDetails.MovieDetailView;
 import com.udacity.oliverh.movies.R;
 import com.udacity.oliverh.movies.data.database.Movie;
 import com.udacity.oliverh.movies.data.database.QueriedMovieList;
