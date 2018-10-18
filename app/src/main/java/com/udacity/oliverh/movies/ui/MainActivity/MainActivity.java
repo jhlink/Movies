@@ -180,13 +180,6 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    private void showTopRatedMovies() {
-        Callback topRatedMoviesRequestCb =  getNetworkRequestCallback();
-
-        onNetworkRequest();
-        //MovieServiceAPI.getTopRatedMovies(this, topRatedMoviesRequestCb);
-    }
-
     private void showPopularMovies() {
         Callback popularMoviesRequestCb = getNetworkRequestCallback();
 
