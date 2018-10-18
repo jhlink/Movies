@@ -11,6 +11,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -32,6 +33,7 @@ import com.udacity.oliverh.movies.ui.MainActivity.Recycler.GridItemDecoration;
 import com.udacity.oliverh.movies.ui.MainActivity.Recycler.MovieAdapter;
 
 import java.io.IOException;
+import java.nio.charset.MalformedInputException;
 import java.util.List;
 
 import okhttp3.Call;
@@ -40,6 +42,7 @@ import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity
         implements MovieAdapter.GridItemClickListener {
+    private static final String TAG = MainActivity.class.getSimpleName();
     private static final int GRID_STATE_KEY = R.string.GRID_LAYOUT_STATE_PARCELABLE_KEY;
     private static final int NUM_MOVIE_GRID_SPAN_COUNT = 2;
     private MovieAdapter mAdapter;
@@ -81,23 +84,26 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void setupViewModel_TopMovies() {
+        Log.d(TAG, "Setup View Model for TopMovie list");
         mainActivityViewModel = ViewModelProviders.of(this).get(MainActivityViewModel.class);
         mainActivityViewModel.getTopRatedMovies().observe(this, new Observer<ApiResponse>() {
             @Override
             public void onChanged(@Nullable ApiResponse response) {
                 if (response == null) {
                     onNetworkFailure();
+                    Log.d(TAG, "TopMovieViewModel: Network Failure");
                     return;
                 }
 
                 if (response.getError() == null) {
                     onNetworkSuccess();
+                    Log.d(TAG, "TopMovieViewModel: Network Success | Set adapter with MovieListData");
                     mAdapter.setMovieListData(response.getMovieList());
                     mAdapter.notifyDataSetChanged();
                     restorePosition();
                 } else {
                     Throwable e = response.getError();
-                    Toast.makeText(MainActivity.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Log.d(TAG, "TopMovieViewModel: Server Error | " + e.getMessage());
                 }
             }
         });
@@ -164,7 +170,7 @@ public class MainActivity extends AppCompatActivity
                 return true;
 
             case R.id.action_top_rated:
-                showTopRatedMovies();
+                setupViewModel_TopMovies();
                 return true;
 
             default:
