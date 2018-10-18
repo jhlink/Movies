@@ -69,6 +69,39 @@ public class MovieRepository {
         });
     }
 
+    public LiveData<ApiResponse> getPopularMovies(final Context context) {
+
+        Log.d(TAG, "Execute API request for PopularMovies list");
+
+        final MutableLiveData<ApiResponse> movieApiResponse = new MutableLiveData<>();
+
+        AppExecutors.getInstance().networkIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                Call popularMoviesCall = MovieServiceAPI.getPopularMovies(context);
+                popularMoviesCall.enqueue(new Callback() {
+                    @Override
+                    public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                        Log.d(TAG, "API request failed | " + e.getMessage());
+                        movieApiResponse.postValue(new ApiResponse(e));
+                    }
+
+                    @Override
+                    public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                        if (response.isSuccessful()) {
+                            Log.d(TAG, "API request successful");
+                            final QueriedMovieList movies = jsonListParser(response.body().string());
+                            ApiResponse successfulResponse = new ApiResponse(movies.getResults());
+                            movieApiResponse.postValue(successfulResponse);
+                        }
+                    }
+                });
+            }
+        });
+
+        return movieApiResponse;
+    }
+
     public LiveData<ApiResponse> getTopRatedMovies(final Context context) {
 
         Log.d(TAG, "Execute API request for TopRatedMovie list");
