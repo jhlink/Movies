@@ -16,10 +16,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.stetho.Stetho;
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
+import com.udacity.oliverh.movies.data.network.ApiResponse;
 import com.udacity.oliverh.movies.ui.MovieDetails.MovieDetails;
 import com.udacity.oliverh.movies.R;
 import com.udacity.oliverh.movies.data.database.Movie;
@@ -69,13 +71,36 @@ public class MainActivity extends AppCompatActivity
         mAdapter = new MovieAdapter(this);
         mMovieGrid.setAdapter(mAdapter);
 
-        setupViewModel();
+        setupViewModel_TopMovies();
 
-        showTopRatedMovies();
+        //showTopRatedMovies();
     }
 
     private void initializeStetho() {
         Stetho.initializeWithDefaults(this);
+    }
+
+    private void setupViewModel_TopMovies() {
+        mainActivityViewModel = ViewModelProviders.of(this).get(MainActivityViewModel.class);
+        mainActivityViewModel.getTopRatedMovies().observe(this, new Observer<ApiResponse>() {
+            @Override
+            public void onChanged(@Nullable ApiResponse response) {
+                if (response == null) {
+                    onNetworkFailure();
+                    return;
+                }
+
+                if (response.getError() == null) {
+                    onNetworkSuccess();
+                    mAdapter.setMovieListData(response.getMovieList());
+                    mAdapter.notifyDataSetChanged();
+                    restorePosition();
+                } else {
+                    Throwable e = response.getError();
+                    Toast.makeText(MainActivity.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     private void setupViewModel() {
@@ -153,7 +178,7 @@ public class MainActivity extends AppCompatActivity
         Callback topRatedMoviesRequestCb =  getNetworkRequestCallback();
 
         onNetworkRequest();
-        MovieServiceAPI.getTopRatedMovies(this, topRatedMoviesRequestCb);
+        //MovieServiceAPI.getTopRatedMovies(this, topRatedMoviesRequestCb);
     }
 
     private void showPopularMovies() {
