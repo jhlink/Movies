@@ -56,13 +56,8 @@ public class MainActivityViewModel extends AndroidViewModel {
                 });
     }
 
-    public LiveData<ApiResponse> getTopRatedMovies() {
+    public LiveData<ApiResponse> getData() {
         Log.d(TAG, "Get TopRatedMovies");
-        return movieApiResponse;
-    }
-
-    public LiveData<ApiResponse> getPopularMovies() {
-        Log.d(TAG, "Get PopularMovies");
         return movieApiResponse;
     }
 

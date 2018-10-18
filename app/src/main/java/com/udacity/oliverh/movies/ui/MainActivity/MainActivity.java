@@ -74,47 +74,35 @@ public class MainActivity extends AppCompatActivity
         mAdapter = new MovieAdapter(this);
         mMovieGrid.setAdapter(mAdapter);
 
-        setupViewModel_TopMovies();
-
-        //showTopRatedMovies();
+        setupViewModel();
     }
 
     private void initializeStetho() {
         Stetho.initializeWithDefaults(this);
     }
 
-    private void setupViewModel_TopMovies() {
+    private void setupViewModel() {
         Log.d(TAG, "Setup View Model for TopMovie list");
         mainActivityViewModel = ViewModelProviders.of(this).get(MainActivityViewModel.class);
-        mainActivityViewModel.getTopRatedMovies().observe(this, new Observer<ApiResponse>() {
+        mainActivityViewModel.getData().observe(this, new Observer<ApiResponse>() {
             @Override
             public void onChanged(@Nullable ApiResponse response) {
                 if (response == null) {
                     onNetworkFailure();
-                    Log.d(TAG, "TopMovieViewModel: Network Failure");
+                    Log.d(TAG, "Response: Network Failure");
                     return;
                 }
 
                 if (response.getError() == null) {
                     onNetworkSuccess();
-                    Log.d(TAG, "TopMovieViewModel: Set adapter with MovieListData");
+                    Log.d(TAG, "Success: Set adapter with MovieListData");
                     mAdapter.setMovieListData(response.getMovieList());
                     mAdapter.notifyDataSetChanged();
                     restorePosition();
                 } else {
                     Throwable e = response.getError();
-                    Log.d(TAG, "TopMovieViewModel: Server Error | " + e.getMessage());
+                    Log.d(TAG, "Response: Server Error | " + e.getMessage());
                 }
-            }
-        });
-    }
-
-    private void setupViewModel() {
-        mainActivityViewModel = ViewModelProviders.of(this).get(MainActivityViewModel.class);
-        mainActivityViewModel.getFavoriteMovies().observe(this, new Observer<List<Movie>>() {
-            @Override
-            public void onChanged(@Nullable List<Movie> movies) {
-                mAdapter.setMovieListData(movies);
             }
         });
     }
