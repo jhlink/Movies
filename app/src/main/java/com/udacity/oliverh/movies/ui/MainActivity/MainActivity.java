@@ -170,7 +170,6 @@ public class MainActivity extends AppCompatActivity
                 return true;
 
             case R.id.action_top_rated:
-                mainActivityViewModel = ViewModelProviders.of(this).get(MainActivityViewModel.class);
                 mainActivityViewModel.fetchTopRatedMovies();
                 return true;
 
