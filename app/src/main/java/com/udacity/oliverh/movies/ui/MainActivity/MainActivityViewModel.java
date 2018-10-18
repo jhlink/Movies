@@ -29,6 +29,7 @@ public class MainActivityViewModel extends AndroidViewModel {
         AppDatabase database = AppDatabase.getInstance(application);
         mRepository = MovieRepository.getInstance(database);
         movieApiResponse = new MediatorLiveData<>();
+        fetchTopRatedMovies(application.getApplicationContext());
     }
 
     public void fetchTopRatedMovies(Context mContext) {
