@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity
 
                 if (response.getError() == null) {
                     onNetworkSuccess();
-                    Log.d(TAG, "TopMovieViewModel: Network Success | Set adapter with MovieListData");
+                    Log.d(TAG, "TopMovieViewModel: Set adapter with MovieListData");
                     mAdapter.setMovieListData(response.getMovieList());
                     mAdapter.notifyDataSetChanged();
                     restorePosition();
@@ -170,7 +170,8 @@ public class MainActivity extends AppCompatActivity
                 return true;
 
             case R.id.action_top_rated:
-                setupViewModel_TopMovies();
+                mainActivityViewModel = ViewModelProviders.of(this).get(MainActivityViewModel.class);
+                mainActivityViewModel.fetchTopRatedMovies();
                 return true;
 
             default:

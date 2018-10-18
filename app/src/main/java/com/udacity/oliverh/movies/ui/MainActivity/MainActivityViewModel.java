@@ -29,10 +29,11 @@ public class MainActivityViewModel extends AndroidViewModel {
         AppDatabase database = AppDatabase.getInstance(this.getApplication());
         mRepository = MovieRepository.getInstance(database);
         movieApiResponse = new MediatorLiveData<>();
+        fetchTopRatedMovies();
     }
 
-    public LiveData<ApiResponse> getTopRatedMovies() {
-        Log.d(TAG, "Request TopRatedMovies from MainActivityViewModel");
+    public void fetchTopRatedMovies() {
+        Log.d(TAG, "Fetch TopRatedMovies from MainActivityViewModel");
         movieApiResponse.addSource(mRepository.getTopRatedMovies(this.getApplication().getApplicationContext()),
                 new Observer<ApiResponse>() {
                     @Override
@@ -41,6 +42,10 @@ public class MainActivityViewModel extends AndroidViewModel {
                         movieApiResponse.setValue(apiResponse);
                     }
                 });
+    }
+
+    public LiveData<ApiResponse> getTopRatedMovies() {
+        Log.d(TAG, "Get TopRatedMovies");
         return movieApiResponse;
     }
 
