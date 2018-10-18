@@ -6,6 +6,7 @@ import android.arch.lifecycle.MutableLiveData;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
@@ -28,6 +29,7 @@ import okhttp3.Response;
 
 public class MovieRepository {
 
+    private static final String TAG = MovieRepository.class.getSimpleName();
     private static MovieRepository sInstance;
     private final AppDatabase mDb;
     private MovieDao mMovieDao;
@@ -68,6 +70,9 @@ public class MovieRepository {
     }
 
     public LiveData<ApiResponse> getTopRatedMovies(final Context context) {
+
+        Log.d(TAG, "Execute API request for TopRatedMovie list");
+
         final MutableLiveData<ApiResponse> movieApiResponse = new MutableLiveData<>();
 
         AppExecutors.getInstance().networkIO().execute(new Runnable() {
@@ -77,12 +82,14 @@ public class MovieRepository {
                 topRatedMovieCall.enqueue(new Callback() {
                     @Override
                     public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                        Log.d(TAG, "API request failed | " + e.getMessage());
                         movieApiResponse.postValue(new ApiResponse(e));
                     }
 
                     @Override
                     public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                         if (response.isSuccessful()) {
+                            Log.d(TAG, "API request successful");
                             final QueriedMovieList movies = jsonListParser(response.body().string());
                             ApiResponse successfulResponse = new ApiResponse(movies.getResults());
                             movieApiResponse.postValue(successfulResponse);
