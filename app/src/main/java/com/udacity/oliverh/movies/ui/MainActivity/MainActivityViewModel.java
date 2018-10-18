@@ -21,7 +21,6 @@ public class MainActivityViewModel extends AndroidViewModel {
 
     private static final String TAG = MainActivityViewModel.class.getSimpleName();
     private final MovieRepository mRepository;
-    //private final LiveData<List<Movie>> mMovies;
     private final MediatorLiveData<ApiResponse> movieApiResponse;
 
     public MainActivityViewModel(@NonNull Application application) {
@@ -33,7 +32,7 @@ public class MainActivityViewModel extends AndroidViewModel {
     }
 
     public void fetchTopRatedMovies() {
-        Log.d(TAG, "Fetch TopRatedMovies from MainActivityViewModel");
+        Log.d(TAG, "Fetch TopRatedMovies -> MovieRepository");
         movieApiResponse.addSource(mRepository.getTopRatedMovies(this.getApplication().getApplicationContext()),
                 new Observer<ApiResponse>() {
                     @Override
@@ -45,7 +44,7 @@ public class MainActivityViewModel extends AndroidViewModel {
     }
 
     public void fetchPopularMovies() {
-        Log.d(TAG, "Fetch PopularMovies from MainActivityViewModel");
+        Log.d(TAG, "Fetch PopularMovies -> MovieRepository");
         movieApiResponse.addSource(mRepository.getPopularMovies(this.getApplication().getApplicationContext()),
                 new Observer<ApiResponse>() {
                     @Override
@@ -57,7 +56,7 @@ public class MainActivityViewModel extends AndroidViewModel {
     }
 
     public LiveData<ApiResponse> getData() {
-        Log.d(TAG, "Get TopRatedMovies");
+        Log.d(TAG, "Get movieList Data");
         return movieApiResponse;
     }
 
