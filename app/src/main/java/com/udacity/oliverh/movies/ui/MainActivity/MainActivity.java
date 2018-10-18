@@ -1,20 +1,29 @@
 package com.udacity.oliverh.movies.ui.MainActivity;
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProvider;
+import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.facebook.stetho.Stetho;
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
-import com.udacity.oliverh.movies.ui.MovieDetails.MovieDetailView;
+import com.udacity.oliverh.movies.data.network.ApiResponse;
+import com.udacity.oliverh.movies.ui.MovieDetails.MovieDetails;
 import com.udacity.oliverh.movies.R;
 import com.udacity.oliverh.movies.data.database.Movie;
 import com.udacity.oliverh.movies.data.database.QueriedMovieList;
@@ -24,6 +33,8 @@ import com.udacity.oliverh.movies.ui.MainActivity.Recycler.GridItemDecoration;
 import com.udacity.oliverh.movies.ui.MainActivity.Recycler.MovieAdapter;
 
 import java.io.IOException;
+import java.nio.charset.MalformedInputException;
+import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -31,6 +42,7 @@ import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity
         implements MovieAdapter.GridItemClickListener {
+    private static final String TAG = MainActivity.class.getSimpleName();
     private static final int GRID_STATE_KEY = R.string.GRID_LAYOUT_STATE_PARCELABLE_KEY;
     private static final int NUM_MOVIE_GRID_SPAN_COUNT = 2;
     private MovieAdapter mAdapter;
@@ -38,12 +50,13 @@ public class MainActivity extends AppCompatActivity
     private ProgressBar mProgressBar;
     private TextView mErrorMessage;
     private Parcelable mState;
+    private MainActivityViewModel mainActivityViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        initializeStetho();
+        //initializeStetho();
 
         setContentView(R.layout.activity_main);
 
@@ -61,7 +74,37 @@ public class MainActivity extends AppCompatActivity
         mAdapter = new MovieAdapter(this);
         mMovieGrid.setAdapter(mAdapter);
 
-        showTopRatedMovies();
+        setupViewModel();
+    }
+
+    private void initializeStetho() {
+        Stetho.initializeWithDefaults(this);
+    }
+
+    private void setupViewModel() {
+        Log.d(TAG, "Setup View Model for Main Activity");
+        mainActivityViewModel = ViewModelProviders.of(this).get(MainActivityViewModel.class);
+        mainActivityViewModel.getData().observe(this, new Observer<ApiResponse>() {
+            @Override
+            public void onChanged(@Nullable ApiResponse response) {
+                if (response == null) {
+                    onNetworkFailure();
+                    Log.d(TAG, "Response: Network Failure");
+                    return;
+                }
+
+                if (response.getError() == null) {
+                    onNetworkSuccess();
+                    Log.d(TAG, "Success: Set adapter with MovieListData");
+                    mAdapter.setMovieListData(response.getMovieList());
+                    mAdapter.notifyDataSetChanged();
+                    restorePosition();
+                } else {
+                    Throwable e = response.getError();
+                    Log.d(TAG, "Response: Server Error | " + e.getMessage());
+                }
+            }
+        });
     }
 
     @Override
@@ -109,28 +152,21 @@ public class MainActivity extends AppCompatActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         int selectedMenuItem = item.getItemId();
 
+        onNetworkRequest();
         switch (selectedMenuItem) {
             case R.id.action_popular:
-                showPopularMovies();
+                mainActivityViewModel.fetchPopularMovies(getApplicationContext());
                 return true;
 
             case R.id.action_top_rated:
-                mainActivityViewModel = ViewModelProviders.of(this).get(MainActivityViewModel.class);
-                mainActivityViewModel.fetchTopRatedMovies();
+                mainActivityViewModel.fetchTopRatedMovies(getApplicationContext());
                 return true;
 
             default:
-                showPopularMovies();
+                mainActivityViewModel.fetchPopularMovies(getApplicationContext());
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    private void showPopularMovies() {
-        Callback popularMoviesRequestCb = getNetworkRequestCallback();
-
-        onNetworkRequest();
-        MovieServiceAPI.getPopularMovies(this, popularMoviesRequestCb);
     }
 
     private void onNetworkFailure() {
@@ -149,44 +185,5 @@ public class MainActivity extends AppCompatActivity
         mMovieGrid.setVisibility(View.VISIBLE);
         mErrorMessage.setVisibility(View.GONE);
         mProgressBar.setVisibility(View.INVISIBLE);
-    }
-
-    private QueriedMovieList jsonListParser(String jsonResponse) throws IOException {
-        Moshi moshi = new Moshi.Builder()
-                .add(new DateAdapter())
-                .build();
-
-        JsonAdapter<QueriedMovieList> jsonAdapter = moshi.adapter(QueriedMovieList.class);
-
-        return jsonAdapter.fromJson(jsonResponse);
-    }
-
-    private Callback getNetworkRequestCallback() {
-        return new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                MainActivity.this.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        onNetworkFailure();
-                    }
-                });
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                final QueriedMovieList movies = jsonListParser(response.body().string());
-
-                MainActivity.this.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        onNetworkSuccess();
-                        mAdapter.setMovieListData(movies.getResults());
-                        mAdapter.notifyDataSetChanged();
-                        restorePosition();
-                    }
-                });
-            }
-        };
     }
 }

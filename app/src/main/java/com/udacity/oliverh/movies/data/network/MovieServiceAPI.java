@@ -26,7 +26,7 @@ public class MovieServiceAPI {
 
     private static final OkHttpClient client = OkHttpSingleton.getInstance().getClient();
 
-    public static void getPopularMovies(Context context, Callback cb) {
+    public static Call getPopularMovies(Context context) {
         HttpUrl builtUri = HttpUrl.parse(context.getString(MOVIE_DB_BASE_URL_ID)).newBuilder()
                 .addPathSegment(context.getString(POPULAR_MOVIES_QUERY_STRING_ID))
                 .addQueryParameter(context.getString(API_KEY_QUERY_STRING_ID), MOVIE_DB_API_KEY)
@@ -36,7 +36,7 @@ public class MovieServiceAPI {
                 .url(builtUri)
                 .build();
 
-        client.newCall(request).enqueue(cb);
+        return client.newCall(request);
     }
 
     public static Call getTopRatedMovies(Context context) {
