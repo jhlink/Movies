@@ -164,9 +164,10 @@ public class MainActivity extends AppCompatActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         int selectedMenuItem = item.getItemId();
 
+        onNetworkRequest();
         switch (selectedMenuItem) {
             case R.id.action_popular:
-                showPopularMovies();
+                mainActivityViewModel.fetchPopularMovies();
                 return true;
 
             case R.id.action_top_rated:
@@ -174,17 +175,10 @@ public class MainActivity extends AppCompatActivity
                 return true;
 
             default:
-                showPopularMovies();
+                mainActivityViewModel.fetchPopularMovies();
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    private void showPopularMovies() {
-        Callback popularMoviesRequestCb = getNetworkRequestCallback();
-
-        onNetworkRequest();
-        MovieServiceAPI.getPopularMovies(this, popularMoviesRequestCb);
     }
 
     private void onNetworkFailure() {
@@ -203,44 +197,5 @@ public class MainActivity extends AppCompatActivity
         mMovieGrid.setVisibility(View.VISIBLE);
         mErrorMessage.setVisibility(View.GONE);
         mProgressBar.setVisibility(View.INVISIBLE);
-    }
-
-    private QueriedMovieList jsonListParser(String jsonResponse) throws IOException {
-        Moshi moshi = new Moshi.Builder()
-                .add(new DateAdapter())
-                .build();
-
-        JsonAdapter<QueriedMovieList> jsonAdapter = moshi.adapter(QueriedMovieList.class);
-
-        return jsonAdapter.fromJson(jsonResponse);
-    }
-
-    private Callback getNetworkRequestCallback() {
-        return new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                MainActivity.this.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        onNetworkFailure();
-                    }
-                });
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                final QueriedMovieList movies = jsonListParser(response.body().string());
-
-                MainActivity.this.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        onNetworkSuccess();
-                        mAdapter.setMovieListData(movies.getResults());
-                        mAdapter.notifyDataSetChanged();
-                        restorePosition();
-                    }
-                });
-            }
-        };
     }
 }
