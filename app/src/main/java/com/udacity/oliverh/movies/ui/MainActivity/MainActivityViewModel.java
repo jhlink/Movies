@@ -4,6 +4,7 @@ import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MediatorLiveData;
+import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModel;
 import android.content.Context;
@@ -58,7 +59,14 @@ public class MainActivityViewModel extends AndroidViewModel {
         return movieApiResponse;
     }
 
-    public LiveData<List<Movie>> getFavoriteMovies() {
-        return null;
+    public void fetchFavoriteMovies() {
+        Log.d(TAG, "Fetch FavoriteMovies -> MovieRepository");
+        List<Movie> favMovies = mRepository.getFavoriteMovies().getValue();
+        MutableLiveData<ApiResponse> repoResponseData = new MutableLiveData<>();
+
+        ApiResponse databaseResponse = new ApiResponse(favMovies);
+        repoResponseData.postValue(databaseResponse);
+
+        fetchMovieList(repoResponseData);
     }
 }
