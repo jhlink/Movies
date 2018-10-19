@@ -24,12 +24,13 @@ public class MovieDetailView extends AppCompatActivity implements CompoundButton
     private final static String MOVIE_DETAILS_TAG = MovieDetailView.class.getSimpleName();
     private AppDatabase mDb;
     private  MovieDetailsViewModel movieDetailsViewModel;
+    private MovieDetailsBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        MovieDetailsBinding binding = DataBindingUtil.setContentView(this, R.layout.movie_details);
+        binding = DataBindingUtil.setContentView(this, R.layout.movie_details);
 
         Intent activityInitiatingIntent = getIntent();
 
@@ -66,6 +67,10 @@ public class MovieDetailView extends AppCompatActivity implements CompoundButton
         movieDetailsViewModel.getMovie().observe(this, new Observer<Movie>() {
             @Override
             public void onChanged(@Nullable Movie movie) {
+                if (movie == null) {
+                    binding.favoriteBtn.setChecked(false);
+                }
+                binding.favoriteBtn.setChecked(true);
                 movieDetailsViewModel.getMovie().removeObserver(this);
             }
         });
