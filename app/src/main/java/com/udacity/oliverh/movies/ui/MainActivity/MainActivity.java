@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //initializeStetho();
+        initializeStetho();
 
         setContentView(R.layout.activity_main);
 
