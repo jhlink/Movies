@@ -55,12 +55,12 @@ public class MovieDetailView extends AppCompatActivity implements CompoundButton
             Log.d(MOVIE_DETAILS_TAG, "Button checked.");
         } else {
             Log.d(MOVIE_DETAILS_TAG, "Button unchecked.");
-            insertMovie();
+            insertMovie(movieData);
         }
     }
 
-    private void insertMovie() {
-        movieDetailsViewModel.insertMovie(movieData);
+    private void insertMovie(Movie iMovie) {
+        movieDetailsViewModel.insertMovie(iMovie);
     }
 
     private void setupViewModel(int movieId) {
