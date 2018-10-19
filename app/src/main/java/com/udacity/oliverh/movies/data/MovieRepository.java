@@ -97,8 +97,8 @@ public class MovieRepository {
 
     public LiveData<RepositoryResponse> getPopularMovies(final Context context) {
         Log.d(TAG, "Execute API request for PopularMovies list");
-        Call topRatedMovieCall = MovieServiceAPI.getTopRatedMovies(context);
-        return getMovies(topRatedMovieCall);
+        Call popularMovieCall = MovieServiceAPI.getPopularMovies(context);
+        return getMovies(popularMovieCall);
     }
 
     public LiveData<RepositoryResponse> getTopRatedMovies(final Context context) {
