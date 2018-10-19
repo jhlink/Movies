@@ -23,4 +23,5 @@
     <string name="release_date_label">Release Date</string>
     <string name="ParcelID">MOVIE_DATA</string>
     <string name="GRID_LAYOUT_STATE_PARCELABLE_KEY">GRID_LAYOUT_STATE</string>
+    <string name="favorite_movies">Favorite Movies</string>
 </resources>

@@ -12,5 +12,11 @@
         android:id="@+id/action_top_rated"
         android:orderInCategory="2"
         app:showAsAction="ifRoom" />
+    <item
+        android:title="@string/favorite_movies"
+        android:icon="@android:drawable/btn_star_big_on"
+        android:id="@+id/action_favorites"
+        android:orderInCategory="3"
+        app:showAsAction="ifRoom" />
 
 </menu>
