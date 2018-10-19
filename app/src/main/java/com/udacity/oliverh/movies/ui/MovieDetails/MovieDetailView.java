@@ -53,10 +53,10 @@ public class MovieDetailView extends AppCompatActivity implements CompoundButton
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         if (isChecked) {
             Log.d(MOVIE_DETAILS_TAG, "Button checked.");
-            deleteMovie(movieData);
+            insertMovie(movieData);
         } else {
             Log.d(MOVIE_DETAILS_TAG, "Button unchecked.");
-            insertMovie(movieData);
+            deleteMovie(movieData);
         }
     }
 
@@ -74,10 +74,8 @@ public class MovieDetailView extends AppCompatActivity implements CompoundButton
         movieDetailsViewModel.getMovie().observe(this, new Observer<Movie>() {
             @Override
             public void onChanged(@Nullable Movie movie) {
-                if (movie == null) {
-                    binding.favoriteBtn.setChecked(false);
-                }
-                binding.favoriteBtn.setChecked(true);
+                boolean isFavorited = movie != null;
+                binding.favoriteBtn.setChecked(isFavorited);
                 movieDetailsViewModel.getMovie().removeObserver(this);
             }
         });
