@@ -60,12 +60,6 @@ public class MainActivityViewModel extends AndroidViewModel {
 
     public void fetchFavoriteMovies() {
         Log.d(TAG, "Fetch FavoriteMovies -> MovieRepository");
-        List<Movie> favMovies = mRepository.getFavoriteMovies().getValue();
-        
-        MutableLiveData<RepositoryResponse> repoResponseData = new MutableLiveData<>();
-        RepositoryResponse databaseResponse = new RepositoryResponse(favMovies);
-        repoResponseData.postValue(databaseResponse);
-
-        setSourceForLiveData(repoResponseData);
+        setSourceForLiveData(mRepository.getFavoriteMovies());
     }
 }

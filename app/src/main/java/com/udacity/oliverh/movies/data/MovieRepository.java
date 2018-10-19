@@ -1,9 +1,12 @@
 package com.udacity.oliverh.movies.data;
 
 import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.MediatorLiveData;
 import android.arch.lifecycle.MutableLiveData;
+import android.arch.lifecycle.Observer;
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.squareup.moshi.JsonAdapter;
@@ -18,6 +21,7 @@ import com.udacity.oliverh.movies.data.network.MoshiAdapters.DateAdapter;
 import com.udacity.oliverh.movies.data.network.MovieServiceAPI;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.Call;
@@ -30,12 +34,19 @@ public class MovieRepository {
     private static MovieRepository sInstance;
     private final AppDatabase mDb;
     private MovieDao mMovieDao;
-    private LiveData<List<Movie>> mFavoriteMovies;
+    private MediatorLiveData<List<Movie>> mFavoriteMovies;
 
     private MovieRepository(final AppDatabase database) {
         mDb = database;
         mMovieDao = mDb.movieDao();
-        mFavoriteMovies = mMovieDao.loadAllFavoriteMovies();
+        mFavoriteMovies = new MediatorLiveData<>();
+
+        mFavoriteMovies.addSource(mDb.movieDao().loadAllFavoriteMovies(), new Observer<List<Movie>>() {
+            @Override
+            public void onChanged(@Nullable List<Movie> movies) {
+                mFavoriteMovies.postValue(movies);
+            }
+          });
     }
 
     public static MovieRepository getInstance(final AppDatabase database) {
@@ -49,8 +60,17 @@ public class MovieRepository {
         return sInstance;
     }
 
-    public LiveData<List<Movie>> getFavoriteMovies() {
-        return mFavoriteMovies;
+    public LiveData<RepositoryResponse> getFavoriteMovies() {
+        MutableLiveData<RepositoryResponse> repoResponseData = new MutableLiveData<>();
+
+        if ( mFavoriteMovies.getValue() == null ) {
+            mFavoriteMovies.setValue(new ArrayList<Movie>());
+        }
+
+        RepositoryResponse databaseResponse = new RepositoryResponse(mFavoriteMovies.getValue());
+        repoResponseData.postValue(databaseResponse);
+
+        return repoResponseData;
     }
 
     public LiveData<Movie> getMovie(final int movieId) {
