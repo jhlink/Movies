@@ -34,15 +34,15 @@ public class MainActivityViewModel extends AndroidViewModel {
 
     public void fetchTopRatedMovies(Context mContext) {
         Log.d(TAG, "Fetch TopRatedMovies -> MovieRepository");
-        fetchMovieList(mRepository.getTopRatedMovies(mContext));
+        setSourceForLiveData(mRepository.getTopRatedMovies(mContext));
     }
 
     public void fetchPopularMovies(Context mContext) {
         Log.d(TAG, "Fetch PopularMovies -> MovieRepository");
-        fetchMovieList(mRepository.getPopularMovies(mContext));
+        setSourceForLiveData(mRepository.getPopularMovies(mContext));
     }
 
-    private void fetchMovieList(LiveData<RepositoryResponse> movieList) {
+    private void setSourceForLiveData(LiveData<RepositoryResponse> movieList) {
         movieApiResponse.addSource(movieList,
                 new Observer<RepositoryResponse>() {
                     @Override
@@ -61,11 +61,11 @@ public class MainActivityViewModel extends AndroidViewModel {
     public void fetchFavoriteMovies() {
         Log.d(TAG, "Fetch FavoriteMovies -> MovieRepository");
         List<Movie> favMovies = mRepository.getFavoriteMovies().getValue();
+        
         MutableLiveData<RepositoryResponse> repoResponseData = new MutableLiveData<>();
-
         RepositoryResponse databaseResponse = new RepositoryResponse(favMovies);
         repoResponseData.postValue(databaseResponse);
 
-        fetchMovieList(repoResponseData);
+        setSourceForLiveData(repoResponseData);
     }
 }
