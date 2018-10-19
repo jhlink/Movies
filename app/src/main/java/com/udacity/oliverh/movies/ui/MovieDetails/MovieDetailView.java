@@ -23,6 +23,7 @@ public class MovieDetailView extends AppCompatActivity implements CompoundButton
 
     private final static String MOVIE_DETAILS_TAG = MovieDetailView.class.getSimpleName();
     private AppDatabase mDb;
+    private  MovieDetailsViewModel movieDetailsViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,11 +33,14 @@ public class MovieDetailView extends AppCompatActivity implements CompoundButton
 
         Intent activityInitiatingIntent = getIntent();
 
-        //mDb = AppDatabase.getInstance(getApplicationContext());
+        mDb = AppDatabase.getInstance(getApplicationContext());
 
         String parcelTag = getString(R.string.ParcelID);
         if (activityInitiatingIntent.hasExtra(parcelTag)) {
             Movie movieData = activityInitiatingIntent.getParcelableExtra(parcelTag);
+
+            setupViewModel(movieData.getId());
+
             binding.setVariable(movie, movieData);
             binding.favoriteBtn.setOnCheckedChangeListener(this);
             binding.executePendingBindings();
@@ -51,19 +55,20 @@ public class MovieDetailView extends AppCompatActivity implements CompoundButton
             Log.d(MOVIE_DETAILS_TAG, "Button unchecked.");
         }
     }
-    private void setupViewModelFactory(int movieId) {
-        MovieDetailsViewModelFactory factory = new MovieDetailsViewModelFactory(mDb, movieId);
-        final MovieDetailsViewModel viewModel = ViewModelProviders.of(this, factory).get(MovieDetailsViewModel.class);
 
-        viewModel.getMovie().observe(this, new Observer<Movie>() {
+    private void insertMovie(Movie mMovie) {
+        movieDetailsViewModel.insertMovie(mMovie);
+    }
+
+    private void setupViewModel(int movieId) {
+        MovieDetailsViewModelFactory factory = new MovieDetailsViewModelFactory(mDb, movieId);
+        movieDetailsViewModel = ViewModelProviders.of(this, factory).get(MovieDetailsViewModel.class);
+        movieDetailsViewModel.getMovie().observe(this, new Observer<Movie>() {
             @Override
             public void onChanged(@Nullable Movie movie) {
-                viewModel.getMovie().removeObserver(this);
-                // Use binding to set live updates?
+                movieDetailsViewModel.getMovie().removeObserver(this);
             }
         });
     }
-
-
 }
 
