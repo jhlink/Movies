@@ -14,9 +14,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-@Entity(primaryKeys = {"id"})
+@Entity
 public class Movie implements Parcelable {
 
+    @PrimaryKey
     private int id;
 
     private String title;
