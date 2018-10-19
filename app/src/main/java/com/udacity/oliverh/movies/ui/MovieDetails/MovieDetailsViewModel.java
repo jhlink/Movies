@@ -15,6 +15,10 @@ public class MovieDetailsViewModel extends ViewModel {
         movie = mRepository.getMovie(movieId);
     }
 
+    public void insertMovie(Movie iMovie) {
+        mRepository.insert(iMovie);
+    }
+
     public LiveData<Movie> getMovie() {
         return movie;
     }

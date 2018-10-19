@@ -23,8 +23,9 @@ public class MovieDetailView extends AppCompatActivity implements CompoundButton
 
     private final static String MOVIE_DETAILS_TAG = MovieDetailView.class.getSimpleName();
     private AppDatabase mDb;
-    private  MovieDetailsViewModel movieDetailsViewModel;
+    private MovieDetailsViewModel movieDetailsViewModel;
     private MovieDetailsBinding binding;
+    private Movie movieData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +39,7 @@ public class MovieDetailView extends AppCompatActivity implements CompoundButton
 
         String parcelTag = getString(R.string.ParcelID);
         if (activityInitiatingIntent.hasExtra(parcelTag)) {
-            Movie movieData = activityInitiatingIntent.getParcelableExtra(parcelTag);
+            movieData = activityInitiatingIntent.getParcelableExtra(parcelTag);
 
             setupViewModel(movieData.getId());
 
@@ -54,11 +55,12 @@ public class MovieDetailView extends AppCompatActivity implements CompoundButton
             Log.d(MOVIE_DETAILS_TAG, "Button checked.");
         } else {
             Log.d(MOVIE_DETAILS_TAG, "Button unchecked.");
+            insertMovie();
         }
     }
 
-    private void insertMovie(Movie mMovie) {
-        movieDetailsViewModel.insertMovie(mMovie);
+    private void insertMovie() {
+        movieDetailsViewModel.insertMovie(movieData);
     }
 
     private void setupViewModel(int movieId) {
