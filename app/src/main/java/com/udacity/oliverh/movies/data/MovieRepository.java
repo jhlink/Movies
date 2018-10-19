@@ -1,9 +1,11 @@
 package com.udacity.oliverh.movies.data;
 
+import android.arch.core.util.Function;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MediatorLiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.Transformations;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -34,19 +36,10 @@ public class MovieRepository {
     private static MovieRepository sInstance;
     private final AppDatabase mDb;
     private MovieDao mMovieDao;
-    private MediatorLiveData<List<Movie>> mFavoriteMovies;
 
     private MovieRepository(final AppDatabase database) {
         mDb = database;
         mMovieDao = mDb.movieDao();
-        mFavoriteMovies = new MediatorLiveData<>();
-
-        mFavoriteMovies.addSource(mDb.movieDao().loadAllFavoriteMovies(), new Observer<List<Movie>>() {
-            @Override
-            public void onChanged(@Nullable List<Movie> movies) {
-                mFavoriteMovies.postValue(movies);
-            }
-          });
     }
 
     public static MovieRepository getInstance(final AppDatabase database) {
@@ -61,14 +54,17 @@ public class MovieRepository {
     }
 
     public LiveData<RepositoryResponse> getFavoriteMovies() {
-        MutableLiveData<RepositoryResponse> repoResponseData = new MutableLiveData<>();
 
-        if ( mFavoriteMovies.getValue() == null ) {
-            mFavoriteMovies.setValue(new ArrayList<Movie>());
-        }
+        LiveData<List<Movie>> favoriteMovies = mMovieDao.loadAllFavoriteMovies();
 
-        RepositoryResponse databaseResponse = new RepositoryResponse(mFavoriteMovies.getValue());
-        repoResponseData.postValue(databaseResponse);
+        LiveData<RepositoryResponse> repoResponseData =
+                Transformations.map(favoriteMovies, new Function<List<Movie>, RepositoryResponse>(){
+                    @Override
+                    public RepositoryResponse apply(List<Movie> movies) {
+                        RepositoryResponse databaseResponse = new RepositoryResponse(movies);
+                        return databaseResponse;
+                    }
+                });
 
         return repoResponseData;
     }
