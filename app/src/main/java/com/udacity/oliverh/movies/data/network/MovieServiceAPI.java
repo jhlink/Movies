@@ -1,14 +1,11 @@
 package com.udacity.oliverh.movies.data.network;
 
-import android.app.Application;
 import android.content.Context;
 
-import com.udacity.oliverh.movies.AppExecutors;
 import com.udacity.oliverh.movies.BuildConfig;
 import com.udacity.oliverh.movies.R;
 
 import okhttp3.Call;
-import okhttp3.Callback;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;

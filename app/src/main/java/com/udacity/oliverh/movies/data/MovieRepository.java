@@ -2,13 +2,10 @@ package com.udacity.oliverh.movies.data;
 
 import android.arch.core.util.Function;
 import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.MediatorLiveData;
 import android.arch.lifecycle.MutableLiveData;
-import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.Transformations;
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.squareup.moshi.JsonAdapter;
@@ -23,7 +20,6 @@ import com.udacity.oliverh.movies.data.network.MoshiAdapters.DateAdapter;
 import com.udacity.oliverh.movies.data.network.MovieServiceAPI;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.Call;

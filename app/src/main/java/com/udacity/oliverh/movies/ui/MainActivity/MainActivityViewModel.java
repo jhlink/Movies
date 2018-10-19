@@ -4,20 +4,15 @@ import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MediatorLiveData;
-import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.Observer;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
-import com.udacity.oliverh.movies.data.AbsentLiveData;
 import com.udacity.oliverh.movies.data.MovieRepository;
 import com.udacity.oliverh.movies.data.database.AppDatabase;
-import com.udacity.oliverh.movies.data.database.Movie;
 import com.udacity.oliverh.movies.data.network.RepositoryResponse;
-
-import java.util.List;
 
 public class MainActivityViewModel extends AndroidViewModel {
 
