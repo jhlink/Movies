@@ -63,18 +63,40 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/movieTitle"
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/movieHeader"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginRight="16dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
-                    android:text="@{movie.title}"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                    tools:text="Inception" />
+                    android:layout_height="match_parent"
+                    android:visibility="visible"
+                    app:layout_constraintBottom_toTopOf="@+id/favoriteBtn"
+                    app:layout_constraintTop_toTopOf="@+id/favoriteBtn">
+
+                    <ToggleButton
+                        android:id="@+id/favoriteBtn"
+                        android:layout_width="48dp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/fav_toggle_button"
+                        android:textOff=""
+                        android:textOn=""
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                    <TextView
+                        android:id="@+id/movieTitle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginBottom="8dp"
+                        android:text="@{movie.title}"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/favoriteBtn"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="Inception" />
+
+                </android.support.constraint.ConstraintLayout>
 
                 <RatingBar
                     android:id="@+id/ratingBar"
