@@ -12,13 +12,13 @@ import java.util.List;
 @Dao
 public interface MovieDao {
 
-   @Query("SELECT * FROM movie ORDER BY title ASC")
+   @Query("SELECT * FROM Movie")
    LiveData<List<Movie>> loadAllFavoriteMovies();
 
    @Insert(onConflict = OnConflictStrategy.REPLACE)
    void insertMovie(Movie movie);
 
-   @Query("SELECT * FROM movie WHERE id =:movieId")
+   @Query("SELECT * FROM Movie WHERE id =:movieId")
    LiveData<Movie> getMovieById(int movieId);
 
    @Delete
