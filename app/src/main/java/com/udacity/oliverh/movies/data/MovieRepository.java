@@ -60,7 +60,7 @@ public class MovieRepository {
         return mMovieDao.getMovieById(movieId);
     }
 
-    public void insert(final Movie movie) {
+    public void insertMovie(final Movie movie) {
         AppExecutors.getInstance().diskIO().execute(new Runnable() {
             @Override
             public void run() {
