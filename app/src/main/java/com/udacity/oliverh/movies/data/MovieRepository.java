@@ -33,12 +33,12 @@ public class MovieRepository {
     private static MovieRepository sInstance;
     private final AppDatabase mDb;
     private MovieDao mMovieDao;
-    private LiveData<List<Movie>> mAllFavoriteMovies;
+    private LiveData<List<Movie>> mFavoriteMovies;
 
     private MovieRepository(final AppDatabase database) {
         mDb = database;
         mMovieDao = mDb.movieDao();
-        mAllFavoriteMovies = mMovieDao.loadAllFavoriteMovies();
+        mFavoriteMovies = mMovieDao.loadAllFavoriteMovies();
     }
 
     public static MovieRepository getInstance(final AppDatabase database) {
@@ -52,8 +52,8 @@ public class MovieRepository {
         return sInstance;
     }
 
-    public LiveData<List<Movie>> getAllFavoriteMovies() {
-        return mAllFavoriteMovies;
+    public LiveData<List<Movie>> getFavoriteMovies() {
+        return mFavoriteMovies;
     }
 
     public LiveData<Movie> getMovie(final int movieId) {
