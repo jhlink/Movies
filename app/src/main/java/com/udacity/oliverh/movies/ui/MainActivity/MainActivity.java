@@ -146,6 +146,10 @@ public class MainActivity extends AppCompatActivity
                 mainActivityViewModel.fetchTopRatedMovies(getApplicationContext());
                 return true;
 
+            case R.id.action_favorites:
+                mainActivityViewModel.fetchFavoriteMovies();
+                return true;
+
             default:
                 mainActivityViewModel.fetchPopularMovies(getApplicationContext());
         }
