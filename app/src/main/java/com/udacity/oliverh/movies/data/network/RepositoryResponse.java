@@ -4,16 +4,16 @@ import com.udacity.oliverh.movies.data.database.Movie;
 
 import java.util.List;
 
-public class ApiResponse {
+public class RepositoryResponse {
     private List<Movie> movieList;
     private Throwable error;
 
-    public ApiResponse(List<Movie> movies) {
+    public RepositoryResponse(List<Movie> movies) {
         this.movieList = movies;
         this.error = null;
     }
 
-    public ApiResponse(Throwable err) {
+    public RepositoryResponse(Throwable err) {
         this.movieList = null;
         this.error = err;
     }

@@ -6,7 +6,6 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MediatorLiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.Observer;
-import android.arch.lifecycle.ViewModel;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -15,7 +14,7 @@ import android.util.Log;
 import com.udacity.oliverh.movies.data.MovieRepository;
 import com.udacity.oliverh.movies.data.database.AppDatabase;
 import com.udacity.oliverh.movies.data.database.Movie;
-import com.udacity.oliverh.movies.data.network.ApiResponse;
+import com.udacity.oliverh.movies.data.network.RepositoryResponse;
 
 import java.util.List;
 
@@ -23,7 +22,7 @@ public class MainActivityViewModel extends AndroidViewModel {
 
     private static final String TAG = MainActivityViewModel.class.getSimpleName();
     private final MovieRepository mRepository;
-    private final MediatorLiveData<ApiResponse> movieApiResponse;
+    private final MediatorLiveData<RepositoryResponse> movieApiResponse;
 
     public MainActivityViewModel(@NonNull Application application) {
         super(application);
@@ -43,18 +42,18 @@ public class MainActivityViewModel extends AndroidViewModel {
         fetchMovieList(mRepository.getPopularMovies(mContext));
     }
 
-    private void fetchMovieList(LiveData<ApiResponse> movieList) {
+    private void fetchMovieList(LiveData<RepositoryResponse> movieList) {
         movieApiResponse.addSource(movieList,
-                new Observer<ApiResponse>() {
+                new Observer<RepositoryResponse>() {
                     @Override
-                    public void onChanged(@Nullable ApiResponse apiResponse) {
+                    public void onChanged(@Nullable RepositoryResponse apiResponse) {
                         Log.d(TAG, "Updated movie list");
                         movieApiResponse.setValue(apiResponse);
                     }
                 });
     }
 
-    public LiveData<ApiResponse> getData() {
+    public LiveData<RepositoryResponse> getData() {
         Log.d(TAG, "Get movieList Data");
         return movieApiResponse;
     }
@@ -62,9 +61,9 @@ public class MainActivityViewModel extends AndroidViewModel {
     public void fetchFavoriteMovies() {
         Log.d(TAG, "Fetch FavoriteMovies -> MovieRepository");
         List<Movie> favMovies = mRepository.getFavoriteMovies().getValue();
-        MutableLiveData<ApiResponse> repoResponseData = new MutableLiveData<>();
+        MutableLiveData<RepositoryResponse> repoResponseData = new MutableLiveData<>();
 
-        ApiResponse databaseResponse = new ApiResponse(favMovies);
+        RepositoryResponse databaseResponse = new RepositoryResponse(favMovies);
         repoResponseData.postValue(databaseResponse);
 
         fetchMovieList(repoResponseData);

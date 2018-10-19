@@ -1,9 +1,7 @@
 package com.udacity.oliverh.movies.ui.MainActivity;
 
 import android.arch.lifecycle.Observer;
-import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -17,28 +15,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.facebook.stetho.Stetho;
-import com.squareup.moshi.JsonAdapter;
-import com.squareup.moshi.Moshi;
-import com.udacity.oliverh.movies.data.network.ApiResponse;
+import com.udacity.oliverh.movies.data.network.RepositoryResponse;
 import com.udacity.oliverh.movies.ui.MovieDetails.MovieDetailView;
 import com.udacity.oliverh.movies.R;
 import com.udacity.oliverh.movies.data.database.Movie;
-import com.udacity.oliverh.movies.data.database.QueriedMovieList;
-import com.udacity.oliverh.movies.data.network.MoshiAdapters.DateAdapter;
-import com.udacity.oliverh.movies.data.network.MovieServiceAPI;
 import com.udacity.oliverh.movies.ui.MainActivity.Recycler.GridItemDecoration;
 import com.udacity.oliverh.movies.ui.MainActivity.Recycler.MovieAdapter;
-
-import java.io.IOException;
-import java.nio.charset.MalformedInputException;
-import java.util.List;
-
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity
         implements MovieAdapter.GridItemClickListener {
@@ -84,9 +68,9 @@ public class MainActivity extends AppCompatActivity
     private void setupViewModel() {
         Log.d(TAG, "Setup View Model for Main Activity");
         mainActivityViewModel = ViewModelProviders.of(this).get(MainActivityViewModel.class);
-        mainActivityViewModel.getData().observe(this, new Observer<ApiResponse>() {
+        mainActivityViewModel.getData().observe(this, new Observer<RepositoryResponse>() {
             @Override
-            public void onChanged(@Nullable ApiResponse response) {
+            public void onChanged(@Nullable RepositoryResponse response) {
                 if (response == null) {
                     onNetworkFailure();
                     Log.d(TAG, "Response: Network Failure");

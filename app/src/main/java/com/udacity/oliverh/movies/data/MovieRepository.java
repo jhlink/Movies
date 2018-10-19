@@ -1,10 +1,8 @@
 package com.udacity.oliverh.movies.data;
 
-import android.app.Application;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.content.Context;
-import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
@@ -15,10 +13,9 @@ import com.udacity.oliverh.movies.data.database.AppDatabase;
 import com.udacity.oliverh.movies.data.database.Movie;
 import com.udacity.oliverh.movies.data.database.MovieDao;
 import com.udacity.oliverh.movies.data.database.QueriedMovieList;
-import com.udacity.oliverh.movies.data.network.ApiResponse;
+import com.udacity.oliverh.movies.data.network.RepositoryResponse;
 import com.udacity.oliverh.movies.data.network.MoshiAdapters.DateAdapter;
 import com.udacity.oliverh.movies.data.network.MovieServiceAPI;
-import com.udacity.oliverh.movies.ui.MainActivity.MainActivity;
 
 import java.io.IOException;
 import java.util.List;
@@ -78,20 +75,20 @@ public class MovieRepository {
         });
     }
 
-    public LiveData<ApiResponse> getPopularMovies(final Context context) {
+    public LiveData<RepositoryResponse> getPopularMovies(final Context context) {
         Log.d(TAG, "Execute API request for PopularMovies list");
         Call topRatedMovieCall = MovieServiceAPI.getTopRatedMovies(context);
         return getMovies(topRatedMovieCall);
     }
 
-    public LiveData<ApiResponse> getTopRatedMovies(final Context context) {
+    public LiveData<RepositoryResponse> getTopRatedMovies(final Context context) {
         Log.d(TAG, "Execute API request for TopRatedMovie list");
         Call topRatedMovieCall = MovieServiceAPI.getTopRatedMovies(context);
         return getMovies(topRatedMovieCall);
     }
 
-    private LiveData<ApiResponse> getMovies(final Call apiCall) {
-        final MutableLiveData<ApiResponse> movieApiResponse = new MutableLiveData<>();
+    private LiveData<RepositoryResponse> getMovies(final Call apiCall) {
+        final MutableLiveData<RepositoryResponse> movieApiResponse = new MutableLiveData<>();
 
         AppExecutors.getInstance().networkIO().execute(new Runnable() {
             @Override
@@ -100,7 +97,7 @@ public class MovieRepository {
                     @Override
                     public void onFailure(@NonNull Call call, @NonNull IOException e) {
                         Log.d(TAG, "-- API Request[Fail]: " + e.getMessage());
-                        movieApiResponse.postValue(new ApiResponse(e));
+                        movieApiResponse.postValue(new RepositoryResponse(e));
                     }
 
                     @Override
@@ -108,7 +105,7 @@ public class MovieRepository {
                         if (response.isSuccessful()) {
                             Log.d(TAG, "-- API Request[Success]");
                             final QueriedMovieList movies = jsonListParser(response.body().string());
-                            ApiResponse successfulResponse = new ApiResponse(movies.getResults());
+                            RepositoryResponse successfulResponse = new RepositoryResponse(movies.getResults());
                             movieApiResponse.postValue(successfulResponse);
                         }
                     }
