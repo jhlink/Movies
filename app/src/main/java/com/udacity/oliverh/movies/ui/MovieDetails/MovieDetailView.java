@@ -53,10 +53,15 @@ public class MovieDetailView extends AppCompatActivity implements CompoundButton
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         if (isChecked) {
             Log.d(MOVIE_DETAILS_TAG, "Button checked.");
+            deleteMovie(movieData);
         } else {
             Log.d(MOVIE_DETAILS_TAG, "Button unchecked.");
             insertMovie(movieData);
         }
+    }
+
+    private void deleteMovie(Movie iMovie) {
+        movieDetailsViewModel.deleteMovie(iMovie);
     }
 
     private void insertMovie(Movie iMovie) {

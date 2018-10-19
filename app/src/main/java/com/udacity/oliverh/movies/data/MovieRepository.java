@@ -69,6 +69,15 @@ public class MovieRepository {
         });
     }
 
+    public void deleteMovie(final Movie movie) {
+        AppExecutors.getInstance().diskIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                mMovieDao.deleteMovie(movie);
+            }
+        });
+    }
+
     public LiveData<ApiResponse> getPopularMovies(final Context context) {
         Log.d(TAG, "Execute API request for PopularMovies list");
         Call topRatedMovieCall = MovieServiceAPI.getTopRatedMovies(context);

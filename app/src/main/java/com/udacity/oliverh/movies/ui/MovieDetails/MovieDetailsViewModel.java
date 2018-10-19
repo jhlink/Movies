@@ -19,6 +19,10 @@ public class MovieDetailsViewModel extends ViewModel {
         mRepository.insertMovie(iMovie);
     }
 
+    public void deleteMovie(Movie iMovie) {
+        mRepository.deleteMovie(iMovie);
+    }
+
     public LiveData<Movie> getMovie() {
         return movie;
     }
