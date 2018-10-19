@@ -2,6 +2,7 @@ package com.udacity.oliverh.movies.data.network;
 
 import com.udacity.oliverh.movies.data.database.Movie;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RepositoryResponse {
@@ -14,7 +15,7 @@ public class RepositoryResponse {
     }
 
     public RepositoryResponse(Throwable err) {
-        this.movieList = null;
+        this.movieList = new ArrayList<>();
         this.error = err;
     }
 
