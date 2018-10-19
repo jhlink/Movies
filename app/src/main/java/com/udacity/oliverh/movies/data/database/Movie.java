@@ -6,6 +6,7 @@ import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
 import com.squareup.moshi.Json;
 
@@ -13,10 +14,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-@Entity
+@Entity(primaryKeys = {"id"})
 public class Movie implements Parcelable {
 
-    @PrimaryKey(autoGenerate = true)
     private int id;
 
     private String title;
@@ -65,6 +65,7 @@ public class Movie implements Parcelable {
 
     @Ignore
     private Movie(Parcel in) {
+        id = in.readInt();
         title = in.readString();
         releaseDate = new Date(in.readLong());
         posterPath = in.readString();
@@ -79,6 +80,7 @@ public class Movie implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(id);
         parcel.writeString(title);
         parcel.writeLong(releaseDate.getTime());
         parcel.writeString(posterPath);
