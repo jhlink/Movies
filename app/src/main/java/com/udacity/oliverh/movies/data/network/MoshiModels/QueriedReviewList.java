@@ -1,4 +1,6 @@
-package com.udacity.oliverh.movies.data.network;
+package com.udacity.oliverh.movies.data.network.MoshiModels;
+
+import com.udacity.oliverh.movies.data.network.Review;
 
 import java.util.ArrayList;
 import java.util.List;

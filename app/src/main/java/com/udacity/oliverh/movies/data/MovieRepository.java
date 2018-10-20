@@ -14,7 +14,7 @@ import com.udacity.oliverh.movies.AppExecutors;
 import com.udacity.oliverh.movies.data.database.AppDatabase;
 import com.udacity.oliverh.movies.data.database.Movie;
 import com.udacity.oliverh.movies.data.database.MovieDao;
-import com.udacity.oliverh.movies.data.network.QueriedMovieList;
+import com.udacity.oliverh.movies.data.network.MoshiModels.QueriedMovieList;
 import com.udacity.oliverh.movies.data.network.RepositoryResponse;
 import com.udacity.oliverh.movies.data.network.MoshiAdapters.DateAdapter;
 import com.udacity.oliverh.movies.data.network.MovieServiceAPI;
