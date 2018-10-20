@@ -23,4 +23,5 @@
 
     <!--Test Strings-->
     <string name="testValue">GoForthAndBelieve</string>
+    <string name="movieReviewLabel">Reviews</string>
 </resources>
