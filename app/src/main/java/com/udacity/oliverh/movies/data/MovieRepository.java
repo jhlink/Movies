@@ -10,16 +10,19 @@ import android.util.Log;
 
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
+import com.squareup.moshi.Types;
 import com.udacity.oliverh.movies.AppExecutors;
 import com.udacity.oliverh.movies.data.database.AppDatabase;
 import com.udacity.oliverh.movies.data.database.Movie;
 import com.udacity.oliverh.movies.data.database.MovieDao;
-import com.udacity.oliverh.movies.data.network.MoshiModels.QueriedMovieList;
-import com.udacity.oliverh.movies.data.network.RepositoryResponse;
 import com.udacity.oliverh.movies.data.network.MoshiAdapters.DateAdapter;
+import com.udacity.oliverh.movies.data.network.MoshiModels.GenericQueriedList;
 import com.udacity.oliverh.movies.data.network.MovieServiceAPI;
+import com.udacity.oliverh.movies.data.network.RepositoryResponse;
+import com.udacity.oliverh.movies.data.network.Review;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.List;
 
 import okhttp3.Call;
@@ -116,7 +119,7 @@ public class MovieRepository {
                     public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                         if (response.isSuccessful()) {
                             Log.d(TAG, "-- API Request[Success]");
-                            final QueriedMovieList movies = jsonListParser(response.body().string());
+                            final GenericQueriedList movies = genericJsonListParser(response.body().string());
                             RepositoryResponse successfulResponse = new RepositoryResponse(movies.getResults());
                             movieApiResponse.postValue(successfulResponse);
                         }
@@ -128,12 +131,13 @@ public class MovieRepository {
         return movieApiResponse;
     }
 
-    private QueriedMovieList jsonListParser(String jsonResponse) throws IOException {
+    private GenericQueriedList genericJsonListParser(String jsonResponse) throws IOException {
         Moshi moshi = new Moshi.Builder()
                 .add(new DateAdapter())
                 .build();
 
-        JsonAdapter<QueriedMovieList> jsonAdapter = moshi.adapter(QueriedMovieList.class);
+        Type typa = Types.newParameterizedType(GenericQueriedList.class, Movie.class, Review.class);
+        JsonAdapter<GenericQueriedList> jsonAdapter = moshi.adapter(typa);
 
         return jsonAdapter.fromJson(jsonResponse);
     }

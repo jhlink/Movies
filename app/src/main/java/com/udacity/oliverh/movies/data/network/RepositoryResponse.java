@@ -5,11 +5,11 @@ import com.udacity.oliverh.movies.data.database.Movie;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RepositoryResponse {
-    private List<Movie> movieList;
+public class RepositoryResponse<T> {
+    private List<T> movieList;
     private Throwable error;
 
-    public RepositoryResponse(List<Movie> movies) {
+    public RepositoryResponse(List<T> movies) {
         this.movieList = movies;
         this.error = null;
     }
@@ -19,11 +19,11 @@ public class RepositoryResponse {
         this.error = err;
     }
 
-    public List<Movie> getMovieList() {
+    public List<T> getMovieList() {
         return movieList;
     }
 
-    public void setMovieList(List<Movie> movieList) {
+    public void setMovieList(List<T> movieList) {
         this.movieList = movieList;
     }
 
