@@ -93,16 +93,16 @@ public class MovieRepository {
     public LiveData<RepositoryResponse> getPopularMovies(final Context context) {
         Log.d(TAG, "Execute API request for PopularMovies list");
         Call popularMovieCall = MovieServiceAPI.getPopularMovies(context);
-        return getMovies(popularMovieCall);
+        return getData(popularMovieCall);
     }
 
     public LiveData<RepositoryResponse> getTopRatedMovies(final Context context) {
         Log.d(TAG, "Execute API request for TopRatedMovie list");
         Call topRatedMovieCall = MovieServiceAPI.getTopRatedMovies(context);
-        return getMovies(topRatedMovieCall);
+        return getData(topRatedMovieCall);
     }
 
-    private LiveData<RepositoryResponse> getMovies(final Call apiCall) {
+    private LiveData<RepositoryResponse> getData(final Call apiCall) {
         final MutableLiveData<RepositoryResponse> movieApiResponse = new MutableLiveData<>();
 
         AppExecutors.getInstance().networkIO().execute(new Runnable() {
@@ -119,8 +119,8 @@ public class MovieRepository {
                     public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                         if (response.isSuccessful()) {
                             Log.d(TAG, "-- API Request[Success]");
-                            final GenericQueriedList movies = genericJsonListParser(response.body().string());
-                            RepositoryResponse successfulResponse = new RepositoryResponse(movies.getResults());
+                            final GenericQueriedList data = genericJsonListParser(response.body().string());
+                            RepositoryResponse successfulResponse = new RepositoryResponse(data.getResults());
                             movieApiResponse.postValue(successfulResponse);
                         }
                     }
@@ -140,5 +140,11 @@ public class MovieRepository {
         JsonAdapter<GenericQueriedList> jsonAdapter = moshi.adapter(typa);
 
         return jsonAdapter.fromJson(jsonResponse);
+    }
+
+    public LiveData<RepositoryResponse> getMovieReviews(final Context context, int movieId) {
+        Log.d(TAG, "Execute API request for movie review list");
+        Call movieReviewsCall = MovieServiceAPI.getMovieReviews(context, movieId);
+        return getData(movieReviewsCall);
     }
 }
