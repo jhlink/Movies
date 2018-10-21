@@ -2,6 +2,7 @@ package com.udacity.oliverh.movies.ui.MovieDetails;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -20,7 +21,7 @@ import static com.udacity.oliverh.movies.BR.movie;
 public class MovieDetailView extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener {
 
     private final static String MOVIE_DETAILS_TAG = MovieDetailView.class.getSimpleName();
-    private AppDatabase mDb;
+    private Context mContext;
     private MovieDetailsViewModel movieDetailsViewModel;
     private MovieDetailsBinding binding;
     private Movie movieData;
@@ -33,7 +34,7 @@ public class MovieDetailView extends AppCompatActivity implements CompoundButton
 
         Intent activityInitiatingIntent = getIntent();
 
-        mDb = AppDatabase.getInstance(getApplicationContext());
+        mContext = getApplicationContext();
 
         String parcelTag = getString(R.string.ParcelID);
         if (activityInitiatingIntent.hasExtra(parcelTag)) {
@@ -67,7 +68,7 @@ public class MovieDetailView extends AppCompatActivity implements CompoundButton
     }
 
     private void setupViewModel(int movieId) {
-        MovieDetailsViewModelFactory factory = new MovieDetailsViewModelFactory(mDb, movieId);
+        MovieDetailsViewModelFactory factory = new MovieDetailsViewModelFactory(mContext, movieId);
         movieDetailsViewModel = ViewModelProviders.of(this, factory).get(MovieDetailsViewModel.class);
         movieDetailsViewModel.getMovie().observe(this, new Observer<Movie>() {
             @Override
