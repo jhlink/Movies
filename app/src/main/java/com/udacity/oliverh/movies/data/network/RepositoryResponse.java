@@ -7,8 +7,8 @@ public class RepositoryResponse<T> {
     private List<T> listOfData;
     private Throwable error;
 
-    public RepositoryResponse(List<T> movies) {
-        this.listOfData = movies;
+    public RepositoryResponse(List<T> data) {
+        this.listOfData = data;
         this.error = null;
     }
 
