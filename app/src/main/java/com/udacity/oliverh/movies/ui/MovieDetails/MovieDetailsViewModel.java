@@ -34,4 +34,8 @@ MovieDetailsViewModel(Context context, int movieId) {
     public LiveData<Movie> getMovie() {
         return movie;
     }
+
+    public LiveData<RepositoryResponse> getReview() {
+        return review;
+    }
 }
