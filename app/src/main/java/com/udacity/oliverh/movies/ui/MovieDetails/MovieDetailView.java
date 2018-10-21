@@ -8,14 +8,15 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.CompoundButton;
 
 import com.udacity.oliverh.movies.R;
-import com.udacity.oliverh.movies.data.database.AppDatabase;
+import com.udacity.oliverh.movies.data.database.Movie;
 import com.udacity.oliverh.movies.data.network.RepositoryResponse;
 import com.udacity.oliverh.movies.databinding.MovieDetailsBinding;
-import com.udacity.oliverh.movies.data.database.Movie;
+import com.udacity.oliverh.movies.ui.MovieDetails.Recycler.ReviewAdapter;
 
 import static com.udacity.oliverh.movies.BR.movie;
 
@@ -27,6 +28,10 @@ public class MovieDetailView extends AppCompatActivity implements CompoundButton
     private MovieDetailsBinding binding;
     private Movie movieData;
 
+    // Recycler view
+    private ReviewAdapter reviewAdapter;
+    private RecyclerView reviewList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +41,8 @@ public class MovieDetailView extends AppCompatActivity implements CompoundButton
         Intent activityInitiatingIntent = getIntent();
 
         mContext = getApplicationContext();
+        reviewAdapter = new ReviewAdapter();
+        reviewList.setAdapter(reviewAdapter);
 
         String parcelTag = getString(R.string.ParcelID);
         if (activityInitiatingIntent.hasExtra(parcelTag)) {
@@ -90,8 +97,8 @@ public class MovieDetailView extends AppCompatActivity implements CompoundButton
 
                 if (response.getError() == null) {
                     Log.d(TAG, "Success: Set adapter with MovieReviews");
-                    //mAdapter.setMovieListData(response.getMovieList());
-                    //mAdapter.notifyDataSetChanged();
+                    reviewAdapter.setReviewListData(response.getListOfData());
+                    reviewAdapter.notifyDataSetChanged();
                 } else {
                     Throwable e = response.getError();
                     Log.d(TAG, "Response: Server Error | " + e.getMessage());

@@ -1,4 +1,4 @@
-package com.udacity.oliverh.movies.ui.ReviewDetails.Recycler;
+package com.udacity.oliverh.movies.ui.MovieDetails.Recycler;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;
