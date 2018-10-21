@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity
                 if (response.getError() == null) {
                     onNetworkSuccess();
                     Log.d(TAG, "Success: Set adapter with MovieListData");
-                    mAdapter.setMovieListData(response.getMovieList());
+                    mAdapter.setMovieListData(response.getListOfData());
                     mAdapter.notifyDataSetChanged();
                     restorePosition();
                 } else {

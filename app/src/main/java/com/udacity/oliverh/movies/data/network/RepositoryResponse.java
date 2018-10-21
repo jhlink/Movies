@@ -1,30 +1,28 @@
 package com.udacity.oliverh.movies.data.network;
 
-import com.udacity.oliverh.movies.data.database.Movie;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class RepositoryResponse<T> {
-    private List<T> movieList;
+    private List<T> listOfData;
     private Throwable error;
 
     public RepositoryResponse(List<T> movies) {
-        this.movieList = movies;
+        this.listOfData = movies;
         this.error = null;
     }
 
     public RepositoryResponse(Throwable err) {
-        this.movieList = new ArrayList<>();
+        this.listOfData = new ArrayList<>();
         this.error = err;
     }
 
-    public List<T> getMovieList() {
-        return movieList;
+    public List<T> getListOfData() {
+        return listOfData;
     }
 
-    public void setMovieList(List<T> movieList) {
-        this.movieList = movieList;
+    public void setListOfData(List<T> listOfData) {
+        this.listOfData = listOfData;
     }
 
     public Throwable getError() {
