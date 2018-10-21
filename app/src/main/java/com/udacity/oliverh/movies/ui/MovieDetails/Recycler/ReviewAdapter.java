@@ -13,6 +13,8 @@ import com.udacity.oliverh.movies.databinding.ReviewListItemBinding;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.udacity.oliverh.movies.BR.review;
+
 public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewViewHolder> {
     private List<Review> mReviews = new ArrayList<>();
 
