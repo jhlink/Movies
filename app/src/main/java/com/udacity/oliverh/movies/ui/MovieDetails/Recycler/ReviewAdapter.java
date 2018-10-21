@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 
 import com.udacity.oliverh.movies.R;
 import com.udacity.oliverh.movies.data.network.Review;
+import com.udacity.oliverh.movies.databinding.ReviewListItemBinding;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,14 +36,14 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
     public ReviewViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
 
         Context context = viewGroup.getContext();
-        int layoutIDForGridItem = R.layout.review_grid_item;
+        int layoutIDForListItem = R.layout.review_list_item;
 
         LayoutInflater inflater = LayoutInflater.from(context);
         boolean shouldAttachToParentImmediately = false;
 
         ReviewListItemBinding binding = DataBindingUtil.inflate(
                 inflater,
-                layoutIDForGridItem,
+                layoutIDForListItem,
                 viewGroup,
                 shouldAttachToParentImmediately);
 
