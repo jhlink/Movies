@@ -8,6 +8,7 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.CompoundButton;
@@ -19,6 +20,7 @@ import com.udacity.oliverh.movies.databinding.MovieDetailsBinding;
 import com.udacity.oliverh.movies.ui.MovieDetails.Recycler.ReviewAdapter;
 
 import static com.udacity.oliverh.movies.BR.movie;
+import static com.udacity.oliverh.movies.BR.review;
 
 public class MovieDetailView extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener {
 
@@ -37,10 +39,13 @@ public class MovieDetailView extends AppCompatActivity implements CompoundButton
         super.onCreate(savedInstanceState);
 
         binding = DataBindingUtil.setContentView(this, R.layout.movie_details);
+        mContext = getApplicationContext();
 
         Intent activityInitiatingIntent = getIntent();
 
-        mContext = getApplicationContext();
+        reviewList = binding.rvReviews;
+        LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
+        reviewList.setLayoutManager(layoutManager);
         reviewAdapter = new ReviewAdapter();
         reviewList.setAdapter(reviewAdapter);
 
