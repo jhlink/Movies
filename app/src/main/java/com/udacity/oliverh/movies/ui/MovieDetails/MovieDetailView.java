@@ -13,6 +13,7 @@ import android.widget.CompoundButton;
 
 import com.udacity.oliverh.movies.R;
 import com.udacity.oliverh.movies.data.database.AppDatabase;
+import com.udacity.oliverh.movies.data.network.RepositoryResponse;
 import com.udacity.oliverh.movies.databinding.MovieDetailsBinding;
 import com.udacity.oliverh.movies.data.database.Movie;
 
@@ -20,7 +21,7 @@ import static com.udacity.oliverh.movies.BR.movie;
 
 public class MovieDetailView extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener {
 
-    private final static String MOVIE_DETAILS_TAG = MovieDetailView.class.getSimpleName();
+    private final static String TAG = MovieDetailView.class.getSimpleName();
     private Context mContext;
     private MovieDetailsViewModel movieDetailsViewModel;
     private MovieDetailsBinding binding;
@@ -51,10 +52,10 @@ public class MovieDetailView extends AppCompatActivity implements CompoundButton
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         if (isChecked) {
-            Log.d(MOVIE_DETAILS_TAG, "Button checked.");
+            Log.d(TAG, "Button checked.");
             insertMovie(movieData);
         } else {
-            Log.d(MOVIE_DETAILS_TAG, "Button unchecked.");
+            Log.d(TAG, "Button unchecked.");
             deleteMovie(movieData);
         }
     }
@@ -78,6 +79,26 @@ public class MovieDetailView extends AppCompatActivity implements CompoundButton
                 movieDetailsViewModel.getMovie().removeObserver(this);
             }
         });
+
+        movieDetailsViewModel.getReview().observe(this, new Observer<RepositoryResponse>() {
+            @Override
+            public void onChanged(@Nullable RepositoryResponse response) {
+                if (response == null) {
+                    Log.d(TAG, "Response: Network Failure");
+                    return;
+                }
+
+                if (response.getError() == null) {
+                    Log.d(TAG, "Success: Set adapter with MovieReviews");
+                    //mAdapter.setMovieListData(response.getMovieList());
+                    //mAdapter.notifyDataSetChanged();
+                } else {
+                    Throwable e = response.getError();
+                    Log.d(TAG, "Response: Server Error | " + e.getMessage());
+                }
+            }
+        });
+
     }
 }
 
