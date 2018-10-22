@@ -8,6 +8,8 @@
     <string name="TOP_RATED_QUERY_STRING">top_rated</string>
     <string name="MOVIE_IMAGE_BASE_URL">https://image.tmdb.org/t/p/</string>
     <string name="GRID_LAYOUT_STATE_PARCELABLE_KEY">GRID_LAYOUT_STATE</string>
+    <string name="MOVIE_REVIEWS_QUERY_STRING_ID">reviews</string>
+    <string name="MOVIE_VIDEOS_QUERY_STRING_ID">videos</string>
     <string name="detailSize">w500</string>
     <string name="ParcelID">MOVIE_DATA</string>
     <string name="thumbnailSize">w342</string>
@@ -20,10 +22,9 @@
     <string name="thumbnail_of_movie_poster">Thumbnail of Movie Poster</string>
     <string name="overview_label">Plot Synopsis</string>
     <string name="release_date_label">Release Date</string>
+    <string name="videos">Videos</string>
+    <string name="movieReviewLabel">Reviews</string>
 
     <!--Test Strings-->
     <string name="testValue">GoForthAndBelieve</string>
-    <string name="movieReviewLabel">Reviews</string>
-    <string name="MOVIE_REVIEWS_QUERY_STRING_ID">reviews</string>
-    <string name="MOVIE_VIDEOS_QUERY_STRING_ID">videos</string>
 </resources>
