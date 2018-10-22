@@ -29,7 +29,7 @@ public class MovieDetailView extends AppCompatActivity implements CompoundButton
     private MovieDetailsBinding binding;
     private Movie movieData;
 
-    // Recycler view
+    // Recycler view for Movie Reviews
     private ReviewAdapter reviewAdapter;
     private RecyclerView reviewList;
 
