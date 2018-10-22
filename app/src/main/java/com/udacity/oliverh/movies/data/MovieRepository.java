@@ -20,6 +20,7 @@ import com.udacity.oliverh.movies.data.database.MovieDao;
 import com.udacity.oliverh.movies.data.network.MoshiAdapters.DateAdapter;
 import com.udacity.oliverh.movies.data.network.MoshiModels.GenericQueriedList;
 import com.udacity.oliverh.movies.data.network.MovieServiceAPI;
+import com.udacity.oliverh.movies.data.network.MovieVideo;
 import com.udacity.oliverh.movies.data.network.RepositoryResponse;
 import com.udacity.oliverh.movies.data.network.Review;
 
@@ -104,6 +105,18 @@ public class MovieRepository {
         return getData(topRatedMovieCall, Movie.class);
     }
 
+    public LiveData<RepositoryResponse> getMovieReviews(final Context context, int movieId) {
+        Log.d(TAG, "Execute API request for movie review list");
+        Call movieReviewsCall = MovieServiceAPI.getMovieReviews(context, movieId);
+        return getData(movieReviewsCall, Review.class);
+    }
+
+    public LiveData<RepositoryResponse> getMovieVideos(final Context context, int movieId) {
+        Log.d(TAG, "Execute API request for movie video list");
+        Call movieVideosCall = MovieServiceAPI.getMovieVideos(context, movieId);
+        return getData(movieVideosCall, MovieVideo.class);
+    }
+
     private LiveData<RepositoryResponse> getData(final Call apiCall, final Type targetDataType) {
         final MutableLiveData<RepositoryResponse> movieApiResponse = new MutableLiveData<>();
 
@@ -144,9 +157,4 @@ public class MovieRepository {
         return jsonAdapter.fromJson(jsonResponse);
     }
 
-    public LiveData<RepositoryResponse> getMovieReviews(final Context context, int movieId) {
-        Log.d(TAG, "Execute API request for movie review list");
-        Call movieReviewsCall = MovieServiceAPI.getMovieReviews(context, movieId);
-        return getData(movieReviewsCall, Review.class);
-    }
 }
