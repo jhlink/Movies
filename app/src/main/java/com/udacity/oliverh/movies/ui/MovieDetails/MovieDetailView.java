@@ -20,7 +20,6 @@ import com.udacity.oliverh.movies.databinding.MovieDetailsBinding;
 import com.udacity.oliverh.movies.ui.MovieDetails.Recycler.ReviewAdapter;
 
 import static com.udacity.oliverh.movies.BR.movie;
-import static com.udacity.oliverh.movies.BR.review;
 
 public class MovieDetailView extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener {
 
@@ -92,7 +91,7 @@ public class MovieDetailView extends AppCompatActivity implements CompoundButton
             }
         });
 
-        movieDetailsViewModel.getReview().observe(this, new Observer<RepositoryResponse>() {
+        movieDetailsViewModel.getReviews().observe(this, new Observer<RepositoryResponse>() {
             @Override
             public void onChanged(@Nullable RepositoryResponse response) {
                 if (response == null) {
