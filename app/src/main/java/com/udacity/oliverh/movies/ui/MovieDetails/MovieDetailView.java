@@ -42,11 +42,6 @@ public class MovieDetailView extends AppCompatActivity implements CompoundButton
 
         Intent activityInitiatingIntent = getIntent();
 
-        reviewList = binding.rvReviews;
-        LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
-        reviewList.setLayoutManager(layoutManager);
-        reviewAdapter = new ReviewAdapter();
-        reviewList.setAdapter(reviewAdapter);
 
         String parcelTag = getString(R.string.ParcelID);
         if (activityInitiatingIntent.hasExtra(parcelTag)) {
@@ -58,6 +53,14 @@ public class MovieDetailView extends AppCompatActivity implements CompoundButton
             binding.favoriteBtn.setOnCheckedChangeListener(this);
             binding.executePendingBindings();
         }
+    }
+
+    private void setupReviewRecyclerView() {
+        reviewList = binding.rvReviews;
+        LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
+        reviewList.setLayoutManager(layoutManager);
+        reviewAdapter = new ReviewAdapter();
+        reviewList.setAdapter(reviewAdapter);
     }
 
     @Override
