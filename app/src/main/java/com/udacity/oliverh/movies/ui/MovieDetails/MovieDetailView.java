@@ -18,6 +18,7 @@ import com.udacity.oliverh.movies.data.database.Movie;
 import com.udacity.oliverh.movies.data.network.RepositoryResponse;
 import com.udacity.oliverh.movies.databinding.MovieDetailsBinding;
 import com.udacity.oliverh.movies.ui.MovieDetails.Recycler.ReviewAdapter;
+import com.udacity.oliverh.movies.ui.MovieDetails.Recycler.VideoAdapter;
 
 import static com.udacity.oliverh.movies.BR.movie;
 
@@ -33,6 +34,10 @@ public class MovieDetailView extends AppCompatActivity implements CompoundButton
     private ReviewAdapter reviewAdapter;
     private RecyclerView reviewList;
 
+    // Recycler view for Movie Videos
+    private VideoAdapter videoAdapter;
+    private RecyclerView videoList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +47,8 @@ public class MovieDetailView extends AppCompatActivity implements CompoundButton
 
         Intent activityInitiatingIntent = getIntent();
 
+        setupReviewRecyclerView();
+        setupVideoRecyclerView();
 
         String parcelTag = getString(R.string.ParcelID);
         if (activityInitiatingIntent.hasExtra(parcelTag)) {
@@ -61,6 +68,14 @@ public class MovieDetailView extends AppCompatActivity implements CompoundButton
         reviewList.setLayoutManager(layoutManager);
         reviewAdapter = new ReviewAdapter();
         reviewList.setAdapter(reviewAdapter);
+    }
+
+    private void setupVideoRecyclerView() {
+        videoList = binding.rvVideos;
+        LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
+        videoList.setLayoutManager(layoutManager);
+        videoAdapter = new VideoAdapter();
+        videoList.setAdapter(videoAdapter);
     }
 
     @Override
