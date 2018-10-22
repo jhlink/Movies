@@ -25,4 +25,5 @@
     <string name="testValue">GoForthAndBelieve</string>
     <string name="movieReviewLabel">Reviews</string>
     <string name="MOVIE_REVIEWS_QUERY_STRING_ID">reviews</string>
+    <string name="MOVIE_VIDEOS_QUERY_STRING_ID">videos</string>
 </resources>

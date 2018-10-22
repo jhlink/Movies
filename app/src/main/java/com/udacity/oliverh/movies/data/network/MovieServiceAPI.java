@@ -71,4 +71,18 @@ public class MovieServiceAPI {
 
         return client.newCall(request);
     }
+
+    public static Call getMovieVideos(Context context, int movieId) {
+        HttpUrl builtUri = HttpUrl.parse(context.getString(MOVIE_DB_BASE_URL_ID)).newBuilder()
+                .addPathSegment(String.valueOf(movieId))
+                .addPathSegment(context.getString(R.string.MOVIE_VIDEOS_QUERY_STRING_ID))
+                .addQueryParameter(context.getString(API_KEY_QUERY_STRING_ID), MOVIE_DB_API_KEY)
+                .build();
+
+        Request request = new Request.Builder()
+                .url(builtUri)
+                .build();
+
+        return client.newCall(request);
+    }
 }
