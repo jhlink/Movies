@@ -15,12 +15,14 @@ public class MovieDetailsViewModel extends ViewModel {
     private final MovieRepository mRepository;
     private final LiveData<Movie> movie;
     private final LiveData<RepositoryResponse> review;
+    private final LiveData<RepositoryResponse> videos;
 
 MovieDetailsViewModel(Context context, int movieId) {
         AppDatabase database = AppDatabase.getInstance(context);
         mRepository = MovieRepository.getInstance(database);
         movie = mRepository.getMovie(movieId);
         review = mRepository.getMovieReviews(context, movieId);
+        videos = mRepository.getMovieVideos(context, movieId);
     }
 
     public void insertMovie(Movie iMovie) {
@@ -37,5 +39,9 @@ MovieDetailsViewModel(Context context, int movieId) {
 
     public LiveData<RepositoryResponse> getReview() {
         return review;
+    }
+
+    public LiveData<RepositoryResponse> getVideos() {
+        return videos;
     }
 }
