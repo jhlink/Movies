@@ -27,4 +27,5 @@
 
     <!--Test Strings-->
     <string name="testValue">GoForthAndBelieve</string>
+    <string name="video_link">Video Link</string>
 </resources>
