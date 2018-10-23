@@ -23,8 +23,8 @@
             android:id="@+id/moviePoster"
             android:layout_width="wrap_content"
             android:layout_height="200dp"
-            android:layout_marginLeft="8dp"
             android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
             android:layout_marginTop="24dp"
             android:contentDescription="@string/thumbnail_of_movie_poster"
             app:imageSize="@{@string/detailSize}"
@@ -37,7 +37,7 @@
             tools:layout_height="200dp"
             tools:layout_width="150dp" />
 
-        <ScrollView
+        <android.support.v4.widget.NestedScrollView
             android:id="@+id/movieDetailScrollView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -50,7 +50,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-            <android.support.constraint.ConstraintLayout
+                <android.support.constraint.ConstraintLayout
                     android:id="@+id/movieHeader"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -58,16 +58,16 @@
                     app:layout_constraintBottom_toTopOf="@+id/favoriteBtn"
                     app:layout_constraintTop_toTopOf="@+id/favoriteBtn">
 
-                <ToggleButton
-                    android:id="@+id/favoriteBtn"
-                    android:layout_width="48dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginLeft="16dp"
-                    android:background="@drawable/fav_toggle_button"
-                    android:textOff=""
-                    android:textOn=""
-                    app:layout_constraintStart_toStartOf="parent" />
+                    <ToggleButton
+                        android:id="@+id/favoriteBtn"
+                        android:layout_width="48dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginLeft="16dp"
+                        android:background="@drawable/fav_toggle_button"
+                        android:textOff=""
+                        android:textOn=""
+                        app:layout_constraintStart_toStartOf="parent" />
 
                     <TextView
                         android:id="@+id/movieTitle"
@@ -86,6 +86,7 @@
                         tools:text="Inception" />
 
                 </android.support.constraint.ConstraintLayout>
+
                 <RatingBar
                     android:id="@+id/ratingBar"
                     style="?android:attr/ratingBarStyleSmall"
@@ -102,11 +103,11 @@
                     android:id="@+id/releaseDateLabel"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginRight="16dp"
                     android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
                     android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginRight="16dp"
                     android:text="@string/release_date_label"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
@@ -114,11 +115,11 @@
                     android:id="@+id/releaseDate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginLeft="32dp"
-                    android:layout_marginRight="16dp"
                     android:layout_marginStart="32dp"
+                    android:layout_marginLeft="32dp"
                     android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginRight="16dp"
                     android:text="@{movie.getFormattedDate}"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                     tools:text="@tools:sample/date/mmddyy" />
@@ -127,11 +128,11 @@
                     android:id="@+id/overviewLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginRight="16dp"
                     android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
                     android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginRight="16dp"
                     android:text="@string/overview_label"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
@@ -139,24 +140,24 @@
                     android:id="@+id/overview"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginRight="32dp"
                     android:layout_marginStart="32dp"
+                    android:layout_marginLeft="16dp"
                     android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginRight="32dp"
                     android:text="@{movie.plotSynopsis}"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                    tools:text="@tools:sample/lorem/random" />
+                    tools:text="@tools:sample/lorem" />
 
                 <TextView
                     android:id="@+id/movieVideosLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginRight="16dp"
                     android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
                     android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginRight="16dp"
                     android:text="@string/videos"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
@@ -164,11 +165,11 @@
                     android:id="@+id/rv_videos"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginLeft="16dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
-                    android:layout_marginLeft="16dp"
                     android:layout_marginRight="32dp"
-                    android:layout_marginStart="32dp"
                     tools:context=".ui.MovieDetails.MovieDetailView"
                     tools:layoutManager="android.support.v7.widget.LinearLayoutManager"
                     tools:listitem="@layout/video_list_item" />
@@ -177,33 +178,33 @@
                     android:id="@+id/movieReviewsLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginRight="16dp"
                     android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
                     android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginRight="16dp"
                     android:text="@string/movieReviewLabel"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rv_reviews"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginLeft="16dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
-                    android:layout_marginLeft="16dp"
                     android:layout_marginRight="32dp"
-                    android:layout_marginStart="32dp"
                     tools:context=".ui.MovieDetails.MovieDetailView"
+                    tools:itemCount="2"
                     tools:layoutManager="android.support.v7.widget.LinearLayoutManager"
-                    tools:listitem="@layout/review_list_item"
-                    tools:spanCount="2" />
+                    tools:listitem="@layout/review_list_item" />
 
                 <Space
                     android:layout_width="match_parent"
                     android:layout_height="50dp" />
 
             </LinearLayout>
-        </ScrollView>
+        </android.support.v4.widget.NestedScrollView>
     </android.support.constraint.ConstraintLayout>
 </layout>
