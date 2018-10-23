@@ -24,7 +24,7 @@
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
             android:layout_marginBottom="8dp"
-            android:maxWidth="250dp"
+            android:maxWidth="@dimen/maxVideoTypeTextViewWidth"
             android:text="@{movieVideo.type}"
             android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
             app:layout_constraintBottom_toBottomOf="parent"
