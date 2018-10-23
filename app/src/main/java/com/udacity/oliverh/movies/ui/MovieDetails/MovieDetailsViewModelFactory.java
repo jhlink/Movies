@@ -4,9 +4,6 @@ import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
 import android.content.Context;
 
-import com.udacity.oliverh.movies.data.MovieRepository;
-import com.udacity.oliverh.movies.data.database.AppDatabase;
-
 public class MovieDetailsViewModelFactory extends ViewModelProvider.NewInstanceFactory {
     private final Context mContext;
     private final int mMovieId;
