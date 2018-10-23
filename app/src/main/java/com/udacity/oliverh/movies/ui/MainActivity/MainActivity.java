@@ -84,6 +84,7 @@ public class MainActivity extends AppCompatActivity
                     mAdapter.notifyDataSetChanged();
                     restorePosition();
                 } else {
+                    onNetworkFailure();
                     Throwable e = response.getError();
                     Log.d(TAG, "Response: Server Error | " + e.getMessage());
                 }
