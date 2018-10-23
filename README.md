@@ -1,5 +1,14 @@
 ### Introduction
 
+### Movies Pt. 2 ---
+
+## Notes
+
+- Room, Repository, LiveData, ViewModels were utilized to persist data. In regards to the Favorite's database, only the movie title, movie id, release data, poster path, vote average, and plot synopsis were stored. The videos and reviews are retrieved solely through an API call. As a result, when opening the MovieDetails activity without network access, both the video and review recycler views will not be populated with any data.  
+
+- There is a bit of code repetition in that multiple recycler views were used. Incorporating Fragments should condense or eliminate this substantially.. 
+
+### Movies Pt. 1 ---
 ## Instructions
 
 1. In order to ensure functionality of the Movies (Pt. 1) app, a file called *ENV_KEYS* must be created in the root project directory with the following text. 
