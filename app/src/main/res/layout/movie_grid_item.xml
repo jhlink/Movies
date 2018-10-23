@@ -16,8 +16,8 @@
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_width="@dimen/zero"
+            android:layout_height="@dimen/zero"
             android:contentDescription="@string/thumbnail_of_movie_poster"
             app:imageSize="@{@string/thumbnailSize}"
             app:imageUrl="@{movie.posterPath}"
