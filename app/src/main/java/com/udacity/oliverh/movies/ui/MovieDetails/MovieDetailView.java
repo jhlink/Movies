@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -66,6 +67,7 @@ public class MovieDetailView extends AppCompatActivity implements CompoundButton
         reviewList = binding.rvReviews;
         LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
         reviewList.setLayoutManager(layoutManager);
+        reviewList.setNestedScrollingEnabled(false);
         reviewAdapter = new ReviewAdapter();
         reviewList.setAdapter(reviewAdapter);
     }
@@ -74,6 +76,7 @@ public class MovieDetailView extends AppCompatActivity implements CompoundButton
         videoList = binding.rvVideos;
         LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
         videoList.setLayoutManager(layoutManager);
+        videoList.setNestedScrollingEnabled(false);
         videoAdapter = new VideoAdapter();
         videoList.setAdapter(videoAdapter);
     }
@@ -121,6 +124,25 @@ public class MovieDetailView extends AppCompatActivity implements CompoundButton
                     Log.d(TAG, "Success: Set adapter with MovieReviews");
                     reviewAdapter.setReviewListData(response.getListOfData());
                     reviewAdapter.notifyDataSetChanged();
+                } else {
+                    Throwable e = response.getError();
+                    Log.d(TAG, "Response: Server Error | " + e.getMessage());
+                }
+            }
+        });
+
+        movieDetailsViewModel.getVideos().observe(this, new Observer<RepositoryResponse>() {
+            @Override
+            public void onChanged(@Nullable RepositoryResponse response) {
+                if (response == null) {
+                    Log.d(TAG, "Response: Network Failure");
+                    return;
+                }
+
+                if (response.getError() == null) {
+                    Log.d(TAG, "Success: Set adapter with MovieVideos");
+                    videoAdapter.setMovieVideosListData(response.getListOfData());
+                    videoAdapter.notifyDataSetChanged();
                 } else {
                     Throwable e = response.getError();
                     Log.d(TAG, "Response: Server Error | " + e.getMessage());
