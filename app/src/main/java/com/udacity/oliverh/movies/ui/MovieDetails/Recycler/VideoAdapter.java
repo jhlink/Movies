@@ -3,6 +3,7 @@ package com.udacity.oliverh.movies.ui.MovieDetails.Recycler;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -54,19 +55,19 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.MovieVideoVi
     }
 
     @Override
-    public void onBindViewHolder(MovieVideoViewHolder reviewViewHolder, int i) {
+    public void onBindViewHolder(MovieVideoViewHolder movieVideoViewHolder, int i) {
         if ( movieVideos.size() > 0 ) {
-            MovieVideo selectedReview = movieVideos.get(i);
-            reviewViewHolder.bind(selectedReview);
+            MovieVideo selectedMovieVideo = movieVideos.get(i);
+            movieVideoViewHolder.bind(selectedMovieVideo);
         }
     }
 
     @Override
     public int getItemCount() {
-        return this.movieVideos.size();
+        return movieVideos.size();
     }
 
-    public void setReviewListData ( List<MovieVideo> reviews ) {
-        this.movieVideos = reviews;
+    public void setMovieVideosListData ( List<MovieVideo> videos ) {
+        this.movieVideos = videos;
     }
 }
